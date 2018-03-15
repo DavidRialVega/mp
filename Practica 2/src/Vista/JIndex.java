@@ -6,6 +6,8 @@
 package Vista;
 
 import java.awt.Color;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 /**
@@ -28,6 +30,8 @@ public class JIndex extends javax.swing.JFrame {
                 panelEscenario.add(jp[i][j]);
             }            
         }
+        panelEscenario.setFocusable(true);
+        
         snake = new Snake(jp, 0, 10);
     }
 
@@ -60,6 +64,17 @@ public class JIndex extends javax.swing.JFrame {
         buttonPausar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
+
+        jPanelPrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanelPrincipalKeyPressed(evt);
+            }
+        });
 
         panelEscenario.setBackground(new java.awt.Color(255, 255, 255));
         panelEscenario.setPreferredSize(new java.awt.Dimension(400, 400));
@@ -133,6 +148,7 @@ public class JIndex extends javax.swing.JFrame {
         );
 
         tfEstado.setText("Introduce el nombre del jugador");
+        tfEstado.setEnabled(false);
         tfEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfEstadoActionPerformed(evt);
@@ -142,6 +158,7 @@ public class JIndex extends javax.swing.JFrame {
         labelNombre.setText("Nombre :");
 
         tfNombreJugador.setText("Jugador");
+        tfNombreJugador.setEnabled(false);
         tfNombreJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNombreJugadorActionPerformed(evt);
@@ -334,6 +351,14 @@ public class JIndex extends javax.swing.JFrame {
         }
         snake.setPause(!snake.pause);
     }//GEN-LAST:event_buttonPausarActionPerformed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        
+    }//GEN-LAST:event_formKeyReleased
+
+    private void jPanelPrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanelPrincipalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPrincipalKeyPressed
 
     /**
      * @param args the command line arguments
