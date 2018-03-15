@@ -5,6 +5,9 @@
  */
 package Vista;
 
+import java.awt.Color;
+import javax.swing.JPanel;
+
 /**
  *
  * @author hectormediero
@@ -16,7 +19,16 @@ public class JIndex extends javax.swing.JFrame {
 
     public JIndex() {
         initComponents();
-        snake = new Snake(jSnake);
+        JPanel[][] jp = new JPanel[50][50];
+        
+        for (int i = 0; i <50; i++) {
+            for (int j = 0; j < 50; j++) {    
+                jp[i][j] = new JPanel();
+                jp[i][j].setBackground(Color.white);
+                panelEscenario.add(jp[i][j]);
+            }            
+        }
+        snake = new Snake(jp, 0, 10);
     }
 
     /**
@@ -30,7 +42,6 @@ public class JIndex extends javax.swing.JFrame {
 
         jPanelPrincipal = new javax.swing.JPanel();
         panelEscenario = new javax.swing.JPanel();
-        jSnake = new javax.swing.JLabel();
         jPanelOpciones = new javax.swing.JPanel();
         jPanelControles = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -51,25 +62,8 @@ public class JIndex extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelEscenario.setBackground(new java.awt.Color(255, 255, 255));
-
-        jSnake.setText("0");
-
-        javax.swing.GroupLayout panelEscenarioLayout = new javax.swing.GroupLayout(panelEscenario);
-        panelEscenario.setLayout(panelEscenarioLayout);
-        panelEscenarioLayout.setHorizontalGroup(
-            panelEscenarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEscenarioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSnake)
-                .addGap(398, 398, 398))
-        );
-        panelEscenarioLayout.setVerticalGroup(
-            panelEscenarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEscenarioLayout.createSequentialGroup()
-                .addGap(171, 171, 171)
-                .addComponent(jSnake)
-                .addContainerGap(239, Short.MAX_VALUE))
-        );
+        panelEscenario.setPreferredSize(new java.awt.Dimension(400, 400));
+        panelEscenario.setLayout(new java.awt.GridLayout(50, 50, 2, 2));
 
         jButton1.setText("→");
         jButton1.setEnabled(false);
@@ -138,7 +132,6 @@ public class JIndex extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        tfEstado.setBackground(new java.awt.Color(255, 255, 255));
         tfEstado.setText("Introduce el nombre del jugador");
         tfEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +141,6 @@ public class JIndex extends javax.swing.JFrame {
 
         labelNombre.setText("Nombre :");
 
-        tfNombreJugador.setBackground(new java.awt.Color(255, 255, 255));
         tfNombreJugador.setText("Jugador");
         tfNombreJugador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +150,6 @@ public class JIndex extends javax.swing.JFrame {
 
         labelX.setText("x");
 
-        tfX.setBackground(new java.awt.Color(255, 255, 255));
         tfX.setText("0");
         tfX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +157,6 @@ public class JIndex extends javax.swing.JFrame {
             }
         });
 
-        tfY.setBackground(new java.awt.Color(255, 255, 255));
         tfY.setText("0");
 
         labelY.setText("y");
@@ -275,8 +265,8 @@ public class JIndex extends javax.swing.JFrame {
             jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelEscenario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelEscenario, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -306,11 +296,11 @@ public class JIndex extends javax.swing.JFrame {
     }//GEN-LAST:event_tfXActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        snake.setDirection(Snake.UP);
+        snake.setDirection(Snake.DOWN);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        snake.setDirection(Snake.DOWN);
+        snake.setDirection(Snake.UP);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tfEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEstadoActionPerformed
@@ -394,7 +384,6 @@ public class JIndex extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelInfo;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPanelPrincipal;
-    private javax.swing.JLabel jSnake;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelX;
     private javax.swing.JLabel labelY;

@@ -2,6 +2,7 @@ package Vista;
 
 import javax.swing.*;
 import Vista.JIndex;
+import java.awt.Color;
 import java.awt.Rectangle;
 
 public class Snake extends Thread {
@@ -12,13 +13,18 @@ public class Snake extends Thread {
     public final static int LEFT = 3;
 
     private int direction;
-    JLabel label;
+    JPanel[][] jpanel;
+    JPanel jpanelPosicion;
+    int x, y;
     boolean pause;
 
-    public Snake(JLabel label) {
-        this.label = label;
+    public Snake(JPanel[][] panel, int x, int y) {
+        this.jpanel = panel;
         this.pause = false;
         this.direction = Snake.RIGHT;
+        this.x = x;
+        this.y = y;
+        jpanelPosicion = jpanel[x][y];
     }
 
     @Override
@@ -36,35 +42,42 @@ public class Snake extends Thread {
     }
 
     private void moveLabel() {
-        Rectangle rec = JIndex.panelEscenario.getBounds();
-        if (label.getX() >= rec.width || label.getX() <= 0 || 
-            label.getY() >= rec.height || label.getY() <= 0 || 
-            label.getText().equals("GAME OVER")) {
-                label.setText("GAME OVER");
-                label.setLocation(450, 250);
-        } else {
-            switch (direction) {
-                case Snake.UP:
-                    label.setLocation(label.getX(), label.getY() + 10);
-                    break;
-                case Snake.RIGHT:
-                    label.setLocation(label.getX() + 10, label.getY());
-                    break;
-                case Snake.DOWN:
-                    label.setLocation(label.getX(), label.getY() - 10);
-                    break;
-                case Snake.LEFT:
-                    label.setLocation(label.getX() - 10, label.getY());
-                    break;
-            }
-            actualizarCamposXY();
+        Color on = Color.RED;
+        Color off = Color.WHITE;
+        switch (direction) {
+            case Snake.UP:
+                jpanelPosicion.setBackground(off);
+                jpanel[x - 1][y].setBackground(on);
+                jpanelPosicion = jpanel[x - 1][y];
+                x = x - 1;
+                break;
+            case Snake.RIGHT:                
+                jpanelPosicion.setBackground(off);
+                jpanel[x][y + 1].setBackground(on);
+                jpanelPosicion = jpanel[x][y + 1];
+                y = y + 1;
+                break;
+            case Snake.DOWN:
+                jpanelPosicion.setBackground(off);
+                jpanel[x + 1][y].setBackground(on);
+                jpanelPosicion = jpanel[x +1][y];
+                x = x + 1;
+               
+                break;
+            case Snake.LEFT:
+                 jpanelPosicion.setBackground(off);
+                jpanel[x][y - 1].setBackground(on);
+                jpanelPosicion = jpanel[x][y - 1];
+                y = y - 1;
+                
+                break;
         }
-
+        actualizarCamposXY();
     }
 
     private void actualizarCamposXY() {
-        JIndex.tfY.setText("" + label.getY());
-        JIndex.tfX.setText("" + label.getX());
+        JIndex.tfY.setText("" + jpanelPosicion.getY());
+        JIndex.tfX.setText("" + jpanelPosicion.getX());
     }
 
     public void setDirection(int direction) {
