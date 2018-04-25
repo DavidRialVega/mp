@@ -17,11 +17,9 @@ import java.util.Scanner;
 public class ServerExec {
 
     static ArrayList<JugadorServer> jugadores = new ArrayList();
-    private static String comenzar;
-    private static Scanner sc;
+   
 
-    public static void main(String[] arg) {
-        sc = new Scanner(System.in);
+    public static void main(String[] arg) {       
         try {
             ServerSocket skServidor = new ServerSocket(2000);
             Socket sCliente;

@@ -81,7 +81,7 @@ public class Snake extends Thread implements Observer, Protocolo {
                             arrayPosiciones.get(cont)[0] = posicion[0] - 1;
                         } else if (cont == arrayPosiciones.size() - 1) {
                             jpanel[posicion[0]][posicion[1]].setBackground(off);
-                            //jpanel[posicion[0] - 1][posicion[1]].setBackground(on);
+
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
                         } else {
@@ -91,25 +91,7 @@ public class Snake extends Thread implements Observer, Protocolo {
                         }
 
                     }
-//                for (int[] posicion : arrayPosiciones) {
-//                    if (cont == 0) {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[posicion[0] - 1][posicion[1]].setBackground(on);
-//                        jpanelPosicion = jpanel[posicion[0] - 1][posicion[1]];
-//                        posicion[0] = posicion[0] -1 ;
-//                    } else if (cont > 0 && cont < arrayPosiciones.size() - 1) { 
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    } else {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    }
-//                    cont++;
-//                }
+//               
 
                     break;
                 case Snake.RIGHT:
@@ -121,44 +103,23 @@ public class Snake extends Thread implements Observer, Protocolo {
                             jpanel[posicion[0]][posicion[1] + 1].setBackground(on);
                             arrayPosiciones.get(cont)[1] = posicion[1] + 1;
                         } else if (cont == 0) {
-
                             jpanel[posicion[0]][posicion[1]].setBackground(off);
                             jpanel[posicion[0]][posicion[1] + 1].setBackground(on);
                             arrayPosiciones.get(cont)[1] = posicion[1] + 1;
 
                         } else if (cont == arrayPosiciones.size() - 1) {
                             jpanel[posicion[0]][posicion[1]].setBackground(off);
-                            //jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
 
                         } else {
-                            // jpanel[posicion[0]][posicion[1]].setBackground(off);
                             jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
                         }
 
                     }
-//                for (int[] posicion : arrayPosiciones) {
-//                    if (cont == 0) {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[posicion[0]][posicion[1] + 1].setBackground(on);
-//                        jpanelPosicion = jpanel[posicion[0]][posicion[1] + 1];
-//                        posicion[1] = posicion[1] + 1;
-//                    } else if (cont > 0 && cont < arrayPosiciones.size() - 1) { 
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    } else {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    }
-//                    cont++;
-//                }
+//                
                     break;
                 case Snake.DOWN:
                     for (int cont = arrayPosiciones.size() - 1; cont >= 0; cont--) {
@@ -166,49 +127,27 @@ public class Snake extends Thread implements Observer, Protocolo {
                         posicion[0] = arrayPosiciones.get(cont)[0];
                         posicion[1] = arrayPosiciones.get(cont)[1];
                         if (cont == 0 && arrayPosiciones.size() > 1) {
-
                             jpanel[posicion[0] + 1][posicion[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = posicion[0] + 1;
 
                         } else if (cont == 0) {
-
                             jpanel[posicion[0]][posicion[1]].setBackground(off);
                             jpanel[posicion[0] + 1][posicion[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = posicion[0] + 1;
 
                         } else if (cont == arrayPosiciones.size() - 1) {
                             jpanel[posicion[0]][posicion[1]].setBackground(off);
-                            //jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
 
                         } else {
-                            // jpanel[posicion[0]][posicion[1]].setBackground(off);
                             jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
                         }
 
                     }
-//                for (int[] posicion : arrayPosiciones) {
-//                    if (cont == 0) {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[posicion[0] + 1][posicion[1]].setBackground(on);
-//                        jpanelPosicion = jpanel[posicion[0] + 1][posicion[1]];
-//                        posicion[0] = posicion[0] + 1;
-//                    } else if (cont > 0 && cont < arrayPosiciones.size() - 1) {
-//                      jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    } else {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    }
-//                    cont++;
-//                }
+//            
                     break;
                 case Snake.LEFT:
                     for (int cont = arrayPosiciones.size() - 1; cont >= 0; cont--) {
@@ -225,42 +164,25 @@ public class Snake extends Thread implements Observer, Protocolo {
                             arrayPosiciones.get(cont)[1] = posicion[1] - 1;
                         } else if (cont == arrayPosiciones.size() - 1) {
                             jpanel[posicion[0]][posicion[1]].setBackground(off);
-                            //  jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
                         } else {
-                            // jpanel[posicion[0]][posicion[1]].setBackground(off);
                             jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
                             arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
                             arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
                         }
 
                     }
-//                for (int[] posicion : arrayPosiciones) {
-//                    if (cont == 0) {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[posicion[0]][posicion[1] - 1].setBackground(on);
-//                        jpanelPosicion = jpanel[posicion[0]][posicion[1] - 1];
-//                        posicion[1] = posicion[1] - 1;
-//                    } else if (cont > 0 && cont < arrayPosiciones.size() - 1) {
-//                         jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    } else {
-//                        jpanel[posicion[0]][posicion[1]].setBackground(off);
-//                        jpanel[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]].setBackground(on);
-//                        posicion[0] = arrayPosiciones.get(cont - 1)[0];
-//                        posicion[1] = arrayPosiciones.get(cont - 1)[1];
-//                    }
-//                    cont++;
-//                }
+//               
                     break;
             }
         } catch (ArrayIndexOutOfBoundsException exc) {
-
             JOptionPane.showMessageDialog(null, "Game Over");
-            SocketCliente.enviar("FIN");
+            MainFrame.runningApp = false;
+
+        } catch (ArrayStoreException ex) {
+            JOptionPane.showMessageDialog(null, "Game Over");
+            MainFrame.runningApp = false;
 
         }
 
@@ -272,7 +194,19 @@ public class Snake extends Thread implements Observer, Protocolo {
     }
 
     public void setDirection(int direction) {
-        this.direction = direction;
+        //this.direction = direction;
+        if (this.direction == 0 && ((direction == 1) || (direction == 3))) {
+            this.direction = direction;
+        }
+        if (this.direction == 1 && ((direction == 2) || (direction == 0))) {
+            this.direction = direction;
+        }
+        if (this.direction == 2 && ((direction == 3) || (direction == 1))) {
+            this.direction = direction;
+        }
+        if (this.direction == 3 && ((direction == 0) || (direction == 2))) {
+            this.direction = direction;
+        }
     }
 
     public void setPause(boolean pause) {

@@ -44,21 +44,21 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
             private void actualiza(int keyCode, boolean pressed) {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        SocketCliente.enviar(DIR + ";ARRIBA");
+                        
                         observer.setDireccion(Snake.UP);
                         break;
                     case KeyEvent.VK_DOWN:
-                        SocketCliente.enviar(DIR + ";ABAJO");
+                  
                         observer.setDireccion(Snake.DOWN);
                         break;
 
                     case KeyEvent.VK_LEFT:
-                        SocketCliente.enviar(DIR + ";IZQUIERDA");
+                  
                         observer.setDireccion(Snake.LEFT);
                         break;
 
                     case KeyEvent.VK_RIGHT:
-                        SocketCliente.enviar(DIR + ";DERECHA");
+                       
                         observer.setDireccion(Snake.RIGHT);
                         break;
                 }
@@ -284,13 +284,11 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
                 snake.notify();
             }
         } else {
-            if (JugadorServer.listaClientes.size() > 1) {
-                runningApp = true;
-                gc.start();
-                snake.start();
-                startButton.setText("Reanudar");
-                //startButton.setEnabled(true);
-            }
+
+            runningApp = true;
+            gc.start();
+            snake.start();
+            startButton.setText("Reanudar");
 
         }
         pauseButton.setEnabled(true);
@@ -311,8 +309,8 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
         leftDirection.setEnabled(false);
         bottomDirection.setEnabled(false);
     }//GEN-LAST:event_pauseButtonActionPerformed
-    
-    public void setTextJlNombreUsuario(String nombreUsuario){
+
+    public void setTextJlNombreUsuario(String nombreUsuario) {
         this.jlNombreUsuario.setText(nombreUsuario);
     }
 
