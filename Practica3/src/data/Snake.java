@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Snake extends Thread implements Observer, Protocolo {
+public class Snake extends Thread implements Protocolo {
 
     public final static int UP = 0;
     public final static int RIGHT = 1;
@@ -22,13 +22,16 @@ public class Snake extends Thread implements Observer, Protocolo {
     JPanel jpanelPosicion;
     int x, y;
     boolean pause;
-    public GameObserver observer;
+    public GameObservable observer;
     GenerarComida gc;
 
     int[] primeraPosicion = new int[2];
     private ArrayList<int[]> arrayPosiciones = new ArrayList();
 
-    public Snake(JPanel[][] panel, int x, int y, GameObserver observer, GenerarComida gc) {
+    public Snake(){
+    }    
+    
+    public Snake(JPanel[][] panel, int x, int y, GameObservable observer, GenerarComida gc) {
         this.jpanel = panel;
         this.pause = false;
         this.direction = Snake.RIGHT;
@@ -186,11 +189,6 @@ public class Snake extends Thread implements Observer, Protocolo {
 
         }
 
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        this.start();
     }
 
     public void setDirection(int direction) {

@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
     public static boolean runningApp;
-    private GameObserver observer;
+    private GameObservable observer;
     private Snake snake;
     GenerarComida gc;
     public static int numeroClientes = 0;

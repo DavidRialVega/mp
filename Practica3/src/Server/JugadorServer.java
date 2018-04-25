@@ -7,6 +7,7 @@ package Server;
 
 import Client.SocketCliente;
 import data.Protocolo;
+import data.Snake;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,6 +16,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,7 +25,7 @@ import java.util.StringTokenizer;
  */
 public class JugadorServer extends Thread implements Protocolo {
 
-    int codigoCliente;
+    int codigoJugador;
     private boolean parar = true;
 
     private Socket skCliente;
@@ -33,18 +36,22 @@ public class JugadorServer extends Thread implements Protocolo {
 
     public JugadorServer(Socket sCliente, int codCliente) throws IOException {
         this.skCliente = sCliente;
-        this.codigoCliente = codCliente;
+        this.codigoJugador = codCliente;
         inputStream = skCliente.getInputStream();
         flujo_entrada = new DataInputStream(inputStream);
         outputStream = skCliente.getOutputStream();
         flujo_salida = new DataOutputStream(outputStream);
-        enviarMensaje(IDC + ";" + codCliente);
-
+        enviarMensaje(IDC + ";" + codCliente);        
+        ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake());
     }
 
-    static void enviarMensaje(String mensaje) throws IOException {
-        flujo_salida.writeUTF(mensaje);
-        flujo_salida.flush();
+    public void enviarMensaje(String mensaje) {
+        try {
+            flujo_salida.writeUTF(mensaje);
+            flujo_salida.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(JugadorServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     void cerrarConexion() throws IOException {

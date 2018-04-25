@@ -5,6 +5,9 @@
  */
 package Server;
 
+import data.GameObservable;
+import data.Protocolo;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,20 +17,22 @@ import java.util.Scanner;
  *
  * @author hectormediero
  */
-public class ServerExec {
+public class ServerExec implements Protocolo{
 
     static ArrayList<JugadorServer> jugadores = new ArrayList();
+    private static PanelDeJuego panelDeJuego;
+    private static GameObservable gameObservable;
    
 
     public static void main(String[] arg) {       
         try {
             ServerSocket skServidor = new ServerSocket(2000);
             Socket sCliente;
-            int numcli = 1;
-            System.out.println("1: [Servidor listo] Esperando a un nuevo cliente...");
+            int numcli = 1;            
+            gameObservable = new GameObservable();
+            panelDeJuego = new PanelDeJuego(gameObservable);            
             while (true) {
-                sCliente = skServidor.accept();
-                System.out.println("2: [Conexión establecida, el cliente " + numcli + " está jugando]");
+                sCliente = skServidor.accept();                
                 jugadores.add(new JugadorServer(sCliente, numcli));
                 jugadores.get(jugadores.size() - 1).start();
                 numcli++;
@@ -36,4 +41,19 @@ public class ServerExec {
             System.out.println(e.getMessage());
         }
     }
+
+    public static GameObservable getGameObservable() {
+        return gameObservable;
+    }
+    
+    public static void empezarPartida() throws IOException{
+        ServerExec.broadcast(EMP_PAR + "");
+    }
+    
+    public static void broadcast(String mensaje) throws IOException{
+        for (JugadorServer jugador : jugadores) {
+            jugador.enviarMensaje(mensaje);
+        }
+    }
+    
 }

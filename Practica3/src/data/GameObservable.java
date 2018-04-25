@@ -1,28 +1,30 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 
-public class GameObserver extends Observable{
+public class GameObservable extends Observable{
     private int selectedColor;
     private String color;
-    Snake snake;
+    private HashMap<Integer,Snake> snakes;    
     
-    public GameObserver() {
-        //this.snake = snake;
+    public GameObservable() {
+        snakes = new HashMap<>();
     }
     
     public void startLabel() {
-        snake.update(this,1);
+        //snake.update(this,1);
         setChanged();
         notifyObservers();
     }
     
     public void setDireccion(int direction) {
-        snake.setDirection(direction);
+        //snake.setDirection(direction);
     }
     
     public void updatear() {
-        snake.moveLabel();
+        //snake.moveLabel();
     }
     
     public int getSelectedColor() {
@@ -38,6 +40,10 @@ public class GameObserver extends Observable{
     }
     
     public void setSnake(Snake snake) {
-        this.snake = snake;
+       // this.snake = snake;
+    }
+    
+    public void addSnake(int idJugador, Snake snake){
+        snakes.put(idJugador, snake);
     }
 }

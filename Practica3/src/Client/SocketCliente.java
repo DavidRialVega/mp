@@ -5,7 +5,7 @@
  */
 package Client;
 
-import data.GameObserver;
+import data.GameObservable;
 import data.MainFrame;
 import data.Protocolo;
 import java.io.DataInputStream;
@@ -94,7 +94,7 @@ public class SocketCliente extends Thread implements Protocolo{
 
                 switch (tipo_mensaje) {
                     case IDC:
-
+                        ClienteExec.setIdCliente(Integer.parseInt(st.nextToken()));
                         break;
                     case ERR:
 
@@ -108,7 +108,7 @@ public class SocketCliente extends Thread implements Protocolo{
                     case PTS:
 
                         break;
-
+                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(SocketCliente.class.getName()).log(Level.SEVERE, null, ex);

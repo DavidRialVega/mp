@@ -5,7 +5,7 @@
  */
 package Client;
 
-import data.GameObserver;
+import data.GameObservable;
 import data.MainFrame;
 import javax.swing.JOptionPane;
 
@@ -21,26 +21,19 @@ public class ClienteExec {
     private static SocketCliente socketCliente;
     private static VentanaInicialCliente vInicialCliente;
     private static MainFrameCliente vPrincipalCliente;
+    private static int idCliente;
 
     public static void main(String[] args) {
         vInicialCliente = new VentanaInicialCliente();
         vInicialCliente.setVisible(true);
-        socketCliente = new SocketCliente();
-//        SocketCliente ac = new SocketCliente();
-//        ac.conexion(); 
-//        
-//        GameObserver observer = new GameObserver();
-//        MainFrame mf = new MainFrame(observer);
-//        mf.setVisible(true);
-//        MainFrame.numeroClientes++;
-//        
-//        ac.start();
+        socketCliente = new SocketCliente();        
     }
     
     public static void intentaLogin(){
         if (socketCliente.incializar(ClienteExec.ipServidor, ClienteExec.puertoServidor)) {
+            socketCliente.start();
             ClienteExec.vInicialCliente.dispose();
-            vPrincipalCliente = new MainFrameCliente();
+            vPrincipalCliente = new MainFrameCliente();            
             vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
             vPrincipalCliente.setVisible(true);            
         }else {
@@ -72,4 +65,12 @@ public class ClienteExec {
     public static void setPuertoServidor(int puertoServidor) {
         ClienteExec.puertoServidor = puertoServidor;
     }
+
+    public static void setIdCliente(int idCliente) {
+        ClienteExec.idCliente = idCliente;
+    }
+
+    public static int getIdCliente() {
+        return idCliente;
+    }   
 }
