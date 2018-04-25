@@ -5,12 +5,14 @@
  */
 package Server;
 
+import Client.SocketCliente;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +21,8 @@ import java.net.Socket;
 public class SocketServer extends Thread {
 
     static final int Puerto = 2000;
+
+    public static ArrayList<SocketServer> listaClientes = new ArrayList();
 
     int codigoCliente;
     private boolean parar = true;
@@ -36,6 +40,11 @@ public class SocketServer extends Thread {
         flujo_entrada = new DataInputStream(auxin);
         auxout = skCliente.getOutputStream();
         flujo_salida = new DataOutputStream(auxout);
+        synchronized (listaClientes) {
+            listaClientes.add(this);
+        }
+
+        System.out.println("clientes en juego: " + this.listaClientes.size());
     }
 
     static void enviarServidor(String mensaje) throws IOException {

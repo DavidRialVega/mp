@@ -1,6 +1,7 @@
 package data;
 
 import Client.SocketCliente;
+import Server.SocketServer;
 import static data.Protocolo.DIR;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
@@ -290,16 +291,19 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        //startButton.setEnabled(false);
         if (startButton.getText() == "Reanudar") {
             synchronized (snake) {
                 snake.notify();
             }
         } else {
-
-            runningApp = true;
-            gc.start();
-            snake.start();
-            startButton.setText("Reanudar");
+            if (SocketServer.listaClientes.size() > 1) {
+                runningApp = true;
+                gc.start();
+                snake.start();
+                startButton.setText("Reanudar");
+                //startButton.setEnabled(true);
+            }
 
         }
         pauseButton.setEnabled(true);

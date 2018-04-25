@@ -12,6 +12,7 @@ package data;
 public interface Protocolo {
 
     public static final int IDC = 1;
+    public static final int NUM_CLIENTES = 7;
     public static final int DIR = 2;
     public static final int MOV = 3;
     public static final int PTS = 4;
