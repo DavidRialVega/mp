@@ -7,6 +7,7 @@ package Client;
 
 import data.GameObserver;
 import data.MainFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,9 +19,11 @@ public class ClienteExec {
     private static String nombreUsuario;
     private static int puertoServidor;
     private static SocketCliente socketCliente;
+    private static VentanaInicialCliente vInicialCliente;
+    private static MainFrameCliente vPrincipalCliente;
 
     public static void main(String[] args) {
-        VentanaInicialCliente vInicialCliente = new VentanaInicialCliente();
+        vInicialCliente = new VentanaInicialCliente();
         vInicialCliente.setVisible(true);
         socketCliente = new SocketCliente();
 //        SocketCliente ac = new SocketCliente();
@@ -36,9 +39,13 @@ public class ClienteExec {
     
     public static void intentaLogin(){
         if (socketCliente.incializar(ClienteExec.ipServidor, ClienteExec.puertoServidor)) {
-            System.out.println("Conectado al servidor");
+            ClienteExec.vInicialCliente.dispose();
+            vPrincipalCliente = new MainFrameCliente();
+            vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
+            vPrincipalCliente.setVisible(true);            
         }else {
-            System.out.println("Error en la conexion");
+            JOptionPane.showMessageDialog(vInicialCliente,"Login erroneo por favor cambie la direccion ip o el puerto, "
+                + "o intentelo más tarde","Problema de red", JOptionPane.ERROR_MESSAGE);
         }
     }
 

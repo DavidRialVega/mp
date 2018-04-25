@@ -1,15 +1,17 @@
-package data;
+package Client;
 
+import data.*;
 import Client.SocketCliente;
 import Server.JugadorServer;
 import static data.Protocolo.DIR;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class MainFrame extends javax.swing.JFrame implements Protocolo {
+public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
     public static boolean runningApp;
     private GameObserver observer;
@@ -17,22 +19,22 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
     GenerarComida gc;
     public static int numeroClientes = 0;
 
-    public MainFrame(GameObserver observer) {
+    public MainFrameCliente() {
         initComponents();
-        JPanel[][] jp = new JPanel[39][39];
-        this.observer = observer;
-        for (int i = 0; i < 39; i++) {
-            for (int j = 0; j < 39; j++) {
-                jp[i][j] = new JPanel();
-                jp[i][j].setBackground(Color.white);
-                gameScene.add(jp[i][j]);
-            }
-        }
-
-        gc = new GenerarComida(jp);
-        snake = new Snake(jp, 15, 15, observer, gc);
-
-        observer.setSnake(snake);
+//        JPanel[][] jp = new JPanel[39][39];
+//        this.observer = observer;
+//        for (int i = 0; i < 39; i++) {
+//            for (int j = 0; j < 39; j++) {
+//                jp[i][j] = new JPanel();
+//                jp[i][j].setBackground(Color.white);
+//                gameScene.add(jp[i][j]);
+//            }
+//        }
+//
+//        gc = new GenerarComida(jp);
+//        snake = new Snake(jp, 15, 15, observer, gc);
+//
+//        observer.setSnake(snake);
 
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -68,7 +70,7 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
 
     public void fin() {
         JOptionPane.showInternalConfirmDialog(this, "Game Over");
-        MainFrame.runningApp = false;
+        MainFrameCliente.runningApp = false;
 
     }
 
@@ -84,9 +86,6 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         gameScene = new javax.swing.JPanel();
         optionsPanel = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
-        playerNameEditable = new javax.swing.JTextField();
-        playerLabel = new javax.swing.JLabel();
-        playerName = new javax.swing.JTextField();
         xLabel = new javax.swing.JLabel();
         xTextfield = new javax.swing.JTextField();
         yLabel = new javax.swing.JLabel();
@@ -95,6 +94,7 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         startButton = new javax.swing.JButton();
         increaseSpeedButton = new javax.swing.JButton();
         decreaseSpeedButton = new javax.swing.JButton();
+        jlNombreUsuario = new javax.swing.JLabel();
         controllsPanel = new javax.swing.JPanel();
         upDirection = new javax.swing.JButton();
         rightDirection = new javax.swing.JButton();
@@ -102,18 +102,10 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         bottomDirection = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 650));
         setSize(new java.awt.Dimension(600, 650));
 
         gameScene.setPreferredSize(new java.awt.Dimension(390, 390));
         gameScene.setLayout(new java.awt.GridLayout(39, 39, 1, 1));
-
-        playerNameEditable.setText("Introduce el nombre de jugador");
-
-        playerLabel.setText("Jugador: ");
-
-        playerName.setText("Nombre");
-        playerName.setEnabled(false);
 
         xLabel.setText("X: ");
 
@@ -147,6 +139,9 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         decreaseSpeedButton.setText("-");
         decreaseSpeedButton.setEnabled(false);
 
+        jlNombreUsuario.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        jlNombreUsuario.setText("Nombre de usuario");
+
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
         infoPanelLayout.setHorizontalGroup(
@@ -154,11 +149,14 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
             .addGroup(infoPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(playerNameEditable)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(playerLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(playerName))
+                        .addComponent(pauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(decreaseSpeedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(increaseSpeedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
                     .addGroup(infoPanelLayout.createSequentialGroup()
                         .addComponent(xLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,26 +166,15 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
                         .addGap(18, 18, 18)
                         .addComponent(yTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34))
-                    .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(pauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(decreaseSpeedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(increaseSpeedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                    .addComponent(jlNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         infoPanelLayout.setVerticalGroup(
             infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(playerNameEditable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(playerLabel)
-                    .addComponent(playerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(19, 19, 19)
+                .addComponent(jlNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(xLabel)
                     .addComponent(xTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,10 +311,10 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         leftDirection.setEnabled(false);
         bottomDirection.setEnabled(false);
     }//GEN-LAST:event_pauseButtonActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
+    
+    public void setTextJlNombreUsuario(String nombreUsuario){
+        this.jlNombreUsuario.setText(nombreUsuario);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bottomDirection;
@@ -336,12 +323,10 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
     private javax.swing.JPanel gameScene;
     private javax.swing.JButton increaseSpeedButton;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JLabel jlNombreUsuario;
     private javax.swing.JButton leftDirection;
     private javax.swing.JPanel optionsPanel;
     private javax.swing.JButton pauseButton;
-    private javax.swing.JLabel playerLabel;
-    private javax.swing.JTextField playerName;
-    private javax.swing.JTextField playerNameEditable;
     private javax.swing.JButton rightDirection;
     private javax.swing.JButton startButton;
     private javax.swing.JButton upDirection;

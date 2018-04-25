@@ -18,11 +18,11 @@ import java.util.ArrayList;
  *
  * @author hectormediero
  */
-public class SocketServer extends Thread {
+public class JugadorServer extends Thread {
 
     static final int Puerto = 2000;
 
-    public static ArrayList<SocketServer> listaClientes = new ArrayList();
+    public static ArrayList<JugadorServer> listaClientes = new ArrayList();
 
     int codigoCliente;
     private boolean parar = true;
@@ -33,7 +33,7 @@ public class SocketServer extends Thread {
     private OutputStream auxout;
     static DataOutputStream flujo_salida;
 
-    public SocketServer(Socket sCliente, int codCliente) throws IOException {
+    public JugadorServer(Socket sCliente, int codCliente) throws IOException {
         this.skCliente = sCliente;
         this.codigoCliente = codCliente;
         auxin = skCliente.getInputStream();

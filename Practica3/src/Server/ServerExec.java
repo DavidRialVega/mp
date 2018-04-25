@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class ServerExec {
 
-    static ArrayList<SocketServer> jugadores = new ArrayList();
+    static ArrayList<JugadorServer> jugadores = new ArrayList();
     private static String comenzar;
     private static Scanner sc;
 
@@ -30,7 +30,7 @@ public class ServerExec {
             while (true) {
                 sCliente = skServidor.accept();
                 System.out.println("2: [Conexión establecida, el cliente " + numcli + " está jugando]");
-                new SocketServer(sCliente, numcli).start();
+                new JugadorServer(sCliente, numcli).start();
                 numcli++;
             }
         } catch (Exception e) {
