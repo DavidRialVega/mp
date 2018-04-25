@@ -21,15 +21,15 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
     public MainFrameCliente() {
         initComponents();
-//        JPanel[][] jp = new JPanel[39][39];
-//        this.observer = observer;
-//        for (int i = 0; i < 39; i++) {
-//            for (int j = 0; j < 39; j++) {
-//                jp[i][j] = new JPanel();
-//                jp[i][j].setBackground(Color.white);
-//                gameScene.add(jp[i][j]);
-//            }
-//        }
+        JPanel[][] jp = new JPanel[39][39];
+        this.observer = observer;
+        for (int i = 0; i < 39; i++) {
+            for (int j = 0; j < 39; j++) {
+                jp[i][j] = new JPanel();
+                jp[i][j].setBackground(Color.white);
+                gameScene.add(jp[i][j]);
+            }
+        }
 //
 //        gc = new GenerarComida(jp);
 //        snake = new Snake(jp, 15, 15, observer, gc);

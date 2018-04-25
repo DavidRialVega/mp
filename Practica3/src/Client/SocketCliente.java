@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -86,6 +87,7 @@ public class SocketCliente extends Thread implements Protocolo{
     @Override
     public void run() {
         String mensaje = "";
+        ArrayList<int[]> jp;
         while (parar) {
             try {
                 mensaje = flujo_entrada.readUTF();
@@ -108,7 +110,9 @@ public class SocketCliente extends Thread implements Protocolo{
                     case PTS:
 
                         break;
-                    
+                    case PANEL:
+                        int[][] a = st.nextToken();
+                        break;                    
                 }
             } catch (IOException ex) {
                 Logger.getLogger(SocketCliente.class.getName()).log(Level.SEVERE, null, ex);

@@ -42,7 +42,7 @@ public class JugadorServer extends Thread implements Protocolo {
         outputStream = skCliente.getOutputStream();
         flujo_salida = new DataOutputStream(outputStream);
         enviarMensaje(IDC + ";" + codCliente);        
-        ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake());
+        ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake(ServerExec.getTamanio()));
     }
 
     public void enviarMensaje(String mensaje) {

@@ -46,4 +46,8 @@ public class GameObservable extends Observable{
     public void addSnake(int idJugador, Snake snake){
         snakes.put(idJugador, snake);
     }
+
+    public void empezarPartida() {
+        snakes.forEach((k,v) -> v.start());
+    }
 }

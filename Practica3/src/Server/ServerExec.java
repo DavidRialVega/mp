@@ -22,15 +22,17 @@ public class ServerExec implements Protocolo{
     static ArrayList<JugadorServer> jugadores = new ArrayList();
     private static PanelDeJuego panelDeJuego;
     private static GameObservable gameObservable;
+    private static int tamanio = 39;
    
 
     public static void main(String[] arg) {       
-        try {
+        try {            
             ServerSocket skServidor = new ServerSocket(2000);
             Socket sCliente;
             int numcli = 1;            
             gameObservable = new GameObservable();
-            panelDeJuego = new PanelDeJuego(gameObservable);            
+            panelDeJuego = new PanelDeJuego(gameObservable);     
+            broadcast(PANEL + ";" + ServerExec.panelDeJuego.jp);
             while (true) {
                 sCliente = skServidor.accept();                
                 jugadores.add(new JugadorServer(sCliente, numcli));
@@ -48,6 +50,7 @@ public class ServerExec implements Protocolo{
     
     public static void empezarPartida() throws IOException{
         ServerExec.broadcast(EMP_PAR + "");
+        ServerExec.gameObservable.empezarPartida();
     }
     
     public static void broadcast(String mensaje) throws IOException{
@@ -55,5 +58,8 @@ public class ServerExec implements Protocolo{
             jugador.enviarMensaje(mensaje);
         }
     }
-    
+
+    public static int getTamanio() {
+        return tamanio;
+    }
 }

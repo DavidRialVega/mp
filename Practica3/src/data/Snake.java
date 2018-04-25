@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -28,7 +29,11 @@ public class Snake extends Thread implements Protocolo {
     int[] primeraPosicion = new int[2];
     private ArrayList<int[]> arrayPosiciones = new ArrayList();
 
-    public Snake(){
+    public Snake(int tamanio){
+        Random r = new Random();
+        this.x = r.nextInt(tamanio);
+        this.y = r.nextInt(tamanio);
+        this.direction = r.nextInt(4);
     }    
     
     public Snake(JPanel[][] panel, int x, int y, GameObservable observer, GenerarComida gc) {
