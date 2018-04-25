@@ -30,7 +30,8 @@ public class ServerExec {
             while (true) {
                 sCliente = skServidor.accept();
                 System.out.println("2: [Conexión establecida, el cliente " + numcli + " está jugando]");
-                new JugadorServer(sCliente, numcli).start();
+                jugadores.add(new JugadorServer(sCliente, numcli));
+                jugadores.get(jugadores.size() - 1).start();
                 numcli++;
             }
         } catch (Exception e) {
