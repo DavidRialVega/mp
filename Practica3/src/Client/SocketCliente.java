@@ -25,8 +25,8 @@ public class SocketCliente extends Thread {
 
     private boolean parar = true;
 
-    final String HOST = "localhost";
-    final int Puerto = 2000;
+    //final String HOST = "localhost";
+    //final int Puerto = 2000;
     static DataOutputStream flujo_salida;
     DataInputStream flujo_entrada;
     OutputStream auxout;
@@ -36,14 +36,20 @@ public class SocketCliente extends Thread {
     private String mensaje = "CONECTAR";
 
     public SocketCliente() {
+       
+    }
+    
+    public boolean incializar(String host, int puerto){
         try {
-            sCliente = new Socket(HOST, Puerto);
+            sCliente = new Socket(host, puerto);
             auxout = sCliente.getOutputStream();
             flujo_salida = new DataOutputStream(auxout);
             auxin = sCliente.getInputStream();
             flujo_entrada = new DataInputStream(auxin);
+            return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return false;
         }
     }
 
