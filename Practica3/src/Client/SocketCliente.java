@@ -111,8 +111,11 @@ public class SocketCliente extends Thread implements Protocolo{
 
                         break;
                     case PANEL:
-                        int[][] a = st.nextToken();
-                        break;                    
+                        
+                        break;  
+                    case EMP_PAR:
+                        System.out.println("Que empiecen los juegos del hambre");
+                        break;
                 }
             } catch (IOException ex) {
                 Logger.getLogger(SocketCliente.class.getName()).log(Level.SEVERE, null, ex);

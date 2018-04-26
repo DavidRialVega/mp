@@ -23,10 +23,12 @@ public class ServerExec implements Protocolo{
     private static PanelDeJuego panelDeJuego;
     private static GameObservable gameObservable;
     private static int tamanio = 39;
+    private static boolean partidaActiva;
    
 
     public static void main(String[] arg) {       
-        try {            
+        try {        
+            partidaActiva = false;
             ServerSocket skServidor = new ServerSocket(2000);
             Socket sCliente;
             int numcli = 1;            
@@ -50,7 +52,22 @@ public class ServerExec implements Protocolo{
     
     public static void empezarPartida() throws IOException{
         ServerExec.broadcast(EMP_PAR + "");
-        ServerExec.gameObservable.empezarPartida();
+        //ServerExec.gameObservable.empezarPartida();
+    }
+    
+    public static void comprobarJugadoresActivos() throws IOException{
+        int cont = 0;
+        
+        for (JugadorServer jugador : jugadores) {
+            if (jugador.isListoJugar()) {
+                cont++;
+            }
+        }
+        if (cont >= 2) {
+            ServerExec.empezarPartida();
+        }else{
+            System.out.println("No hay suficientes jugadores");
+        }
     }
     
     public static void broadcast(String mensaje) throws IOException{
@@ -61,5 +78,9 @@ public class ServerExec implements Protocolo{
 
     public static int getTamanio() {
         return tamanio;
+    }
+
+    public static boolean isPartidaActiva() {
+        return partidaActiva;
     }
 }

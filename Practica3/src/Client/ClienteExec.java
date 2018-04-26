@@ -73,4 +73,9 @@ public class ClienteExec {
     public static int getIdCliente() {
         return idCliente;
     }   
+
+    public static SocketCliente getSocketCliente() {
+        return socketCliente;
+    }
+    
 }

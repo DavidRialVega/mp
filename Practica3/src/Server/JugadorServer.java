@@ -32,7 +32,8 @@ public class JugadorServer extends Thread implements Protocolo {
     private InputStream inputStream;
     private DataInputStream flujo_entrada;
     private OutputStream outputStream;
-    static DataOutputStream flujo_salida;
+    private DataOutputStream flujo_salida;
+    private boolean listoJugar;
 
     public JugadorServer(Socket sCliente, int codCliente) throws IOException {
         this.skCliente = sCliente;
@@ -41,6 +42,7 @@ public class JugadorServer extends Thread implements Protocolo {
         flujo_entrada = new DataInputStream(inputStream);
         outputStream = skCliente.getOutputStream();
         flujo_salida = new DataOutputStream(outputStream);
+        listoJugar = false;
         enviarMensaje(IDC + ";" + codCliente);        
         ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake(ServerExec.getTamanio()));
     }
@@ -86,6 +88,14 @@ public class JugadorServer extends Thread implements Protocolo {
                     case PTS:
 
                         break;
+                    case EMP_PAR:
+                        this.listoJugar = true;
+                        if (ServerExec.isPartidaActiva()) {
+                            enviarMensaje(EMP_PAR + "");                            
+                        }else {
+                            ServerExec.comprobarJugadoresActivos();
+                        }
+                        break;
 
                 }
             } catch (IOException ex) {
@@ -95,4 +105,7 @@ public class JugadorServer extends Thread implements Protocolo {
         }
     }
 
+    public boolean isListoJugar() {
+        return listoJugar;
+    }
 }

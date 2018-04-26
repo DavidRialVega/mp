@@ -278,25 +278,26 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        //startButton.setEnabled(false);
-        if (startButton.getText() == "Reanudar") {
-            synchronized (snake) {
-                snake.notify();
-            }
-        } else {
-
-            runningApp = true;
-            gc.start();
-            snake.start();
-            startButton.setText("Reanudar");
-
-        }
-        pauseButton.setEnabled(true);
         startButton.setEnabled(false);
-        upDirection.setEnabled(true);
-        rightDirection.setEnabled(true);
-        leftDirection.setEnabled(true);
-        bottomDirection.setEnabled(true);
+        ClienteExec.getSocketCliente().enviar(EMP_PAR+ ";" + ClienteExec.getIdCliente());
+//        if (startButton.getText() == "Reanudar") {
+//            synchronized (snake) {
+//                snake.notify();
+//            }
+//        } else {
+//
+//            runningApp = true;
+//            gc.start();
+//            snake.start();
+//            startButton.setText("Reanudar");
+//
+//        }
+//        pauseButton.setEnabled(true);
+//        startButton.setEnabled(false);
+//        upDirection.setEnabled(true);
+//        rightDirection.setEnabled(true);
+//        leftDirection.setEnabled(true);
+//        bottomDirection.setEnabled(true);
 
     }//GEN-LAST:event_startButtonActionPerformed
 
