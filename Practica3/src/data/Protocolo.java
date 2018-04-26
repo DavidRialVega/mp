@@ -20,4 +20,5 @@ public interface Protocolo {
     public static final int NUM_CLIENTES = 7;
     public static final int EMP_PAR = 8;
     public static final int PANEL = 9;
+    public static final int TAM_TABL = 10;
 }

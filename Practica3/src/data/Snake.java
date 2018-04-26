@@ -29,10 +29,10 @@ public class Snake extends Thread implements Protocolo {
     int[] primeraPosicion = new int[2];
     private ArrayList<int[]> arrayPosiciones = new ArrayList();
 
-    public Snake(int tamanio){
+    public Snake(int xTabl, int yTabl){
         Random r = new Random();
-        this.x = r.nextInt(tamanio);
-        this.y = r.nextInt(tamanio);
+        this.x = r.nextInt(xTabl);
+        this.y = r.nextInt(yTabl);
         this.direction = r.nextInt(4);
     }    
     

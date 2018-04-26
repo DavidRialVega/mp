@@ -21,8 +21,7 @@ public class ServerExec implements Protocolo{
 
     static ArrayList<JugadorServer> jugadores = new ArrayList();
     private static PanelDeJuego panelDeJuego;
-    private static GameObservable gameObservable;
-    private static int tamanio = 39;
+    private static GameObservable gameObservable;    
     private static boolean partidaActiva;
    
 
@@ -33,7 +32,7 @@ public class ServerExec implements Protocolo{
             Socket sCliente;
             int numcli = 1;            
             gameObservable = new GameObservable();
-            panelDeJuego = new PanelDeJuego(gameObservable);     
+            panelDeJuego = new PanelDeJuego(gameObservable, 39, 39);     
             broadcast(PANEL + ";" + ServerExec.panelDeJuego.jp);
             while (true) {
                 sCliente = skServidor.accept();                
@@ -74,13 +73,13 @@ public class ServerExec implements Protocolo{
         for (JugadorServer jugador : jugadores) {
             jugador.enviarMensaje(mensaje);
         }
-    }
-
-    public static int getTamanio() {
-        return tamanio;
-    }
+    }   
 
     public static boolean isPartidaActiva() {
         return partidaActiva;
+    }
+
+    public static PanelDeJuego getPanelDeJuego() {
+        return panelDeJuego;
     }
 }

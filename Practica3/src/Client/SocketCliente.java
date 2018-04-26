@@ -86,7 +86,7 @@ public class SocketCliente extends Thread implements Protocolo{
 
     @Override
     public void run() {
-        String mensaje = "";
+        String mensaje;
         ArrayList<int[]> jp;
         while (parar) {
             try {
@@ -115,6 +115,11 @@ public class SocketCliente extends Thread implements Protocolo{
                         break;  
                     case EMP_PAR:
                         System.out.println("Que empiecen los juegos del hambre");
+                        break;
+                    case TAM_TABL:
+                        ClienteExec.setxTablero(Integer.parseInt(st.nextToken()));
+                        ClienteExec.setyTablero(Integer.parseInt(st.nextToken()));
+                        ClienteExec.getvPrincipalCliente().iniciaTablero();
                         break;
                 }
             } catch (IOException ex) {

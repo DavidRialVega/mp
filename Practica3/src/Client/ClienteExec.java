@@ -22,20 +22,22 @@ public class ClienteExec {
     private static VentanaInicialCliente vInicialCliente;
     private static MainFrameCliente vPrincipalCliente;
     private static int idCliente;
+    private static int xTablero;
+    private static int yTablero;
 
     public static void main(String[] args) {
         vInicialCliente = new VentanaInicialCliente();
         vInicialCliente.setVisible(true);
-        socketCliente = new SocketCliente();        
+        socketCliente = new SocketCliente();      
+        vPrincipalCliente = new MainFrameCliente(); 
     }
     
     public static void intentaLogin(){
         if (socketCliente.incializar(ClienteExec.ipServidor, ClienteExec.puertoServidor)) {
             socketCliente.start();
-            ClienteExec.vInicialCliente.dispose();
-            vPrincipalCliente = new MainFrameCliente();            
+            ClienteExec.vInicialCliente.dispose();                       
             vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
-            vPrincipalCliente.setVisible(true);            
+            vPrincipalCliente.setVisible(true);                      
         }else {
             JOptionPane.showMessageDialog(vInicialCliente,"Login erroneo por favor cambie la direccion ip o el puerto, "
                 + "o intentelo más tarde","Problema de red", JOptionPane.ERROR_MESSAGE);
@@ -76,6 +78,26 @@ public class ClienteExec {
 
     public static SocketCliente getSocketCliente() {
         return socketCliente;
+    }
+
+    public static void setxTablero(int xTablero) {
+        ClienteExec.xTablero = xTablero;
+    }
+
+    public static void setyTablero(int yTablero) {
+        ClienteExec.yTablero = yTablero;
+    }
+
+    public static int getxTablero() {
+        return xTablero;
+    }
+
+    public static int getyTablero() {
+        return yTablero;
+    }
+
+    public static MainFrameCliente getvPrincipalCliente() {
+        return vPrincipalCliente;
     }
     
 }

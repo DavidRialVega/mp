@@ -13,23 +13,10 @@ import javax.swing.JPanel;
 
 public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
-    public static boolean runningApp;
-    private GameObservable observer;
-    private Snake snake;
-    GenerarComida gc;
-    public static int numeroClientes = 0;
+    public static boolean runningApp;            
 
     public MainFrameCliente() {
-        initComponents();
-        JPanel[][] jp = new JPanel[39][39];
-        this.observer = observer;
-        for (int i = 0; i < 39; i++) {
-            for (int j = 0; j < 39; j++) {
-                jp[i][j] = new JPanel();
-                jp[i][j].setBackground(Color.white);
-                gameScene.add(jp[i][j]);
-            }
-        }
+        initComponents();        
 //
 //        gc = new GenerarComida(jp);
 //        snake = new Snake(jp, 15, 15, observer, gc);
@@ -45,27 +32,38 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
                         
-                        observer.setDireccion(Snake.UP);
                         break;
                     case KeyEvent.VK_DOWN:
-                  
-                        observer.setDireccion(Snake.DOWN);
+                                        
                         break;
 
                     case KeyEvent.VK_LEFT:
-                  
-                        observer.setDireccion(Snake.LEFT);
+                                          
                         break;
 
                     case KeyEvent.VK_RIGHT:
-                       
-                        observer.setDireccion(Snake.RIGHT);
+                                         
                         break;
                 }
             }
         });
         setFocusable(true);
 
+    }
+    
+    public void iniciaTablero(){
+        int x = ClienteExec.getxTablero();
+        int y = ClienteExec.getyTablero();
+        
+        JPanel[][] jp = new JPanel[39][39];
+        
+        for (int i = 0; i < 39; i++) {
+            for (int j = 0; j < 39; j++) {
+                jp[i][j] = new JPanel();
+                jp[i][j].setBackground(Color.white);
+                gameScene.add(jp[i][j]);
+            }
+        }
     }
 
     public void fin() {
@@ -302,7 +300,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
-        snake.setPause(true);
+        
         startButton.setEnabled(true);
         pauseButton.setEnabled(false);
         upDirection.setEnabled(false);

@@ -25,8 +25,12 @@ public class PanelDeJuego implements Observer {
 
     public ArrayList<int[]> jp = new ArrayList<int[]>();
     public GameObservable observable;    
+    private int xTabl;
+    private int yTabl;
     
-    public PanelDeJuego(GameObservable gameObservable) {
+    public PanelDeJuego(GameObservable gameObservable, int x, int y) {
+        this.xTabl = x;
+        this.yTabl = y;
         this.observable = gameObservable;
         for(int i = 0; i < 40 ; i++){
             int[] arraux = new int [39];
@@ -39,4 +43,11 @@ public class PanelDeJuego implements Observer {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public int getxTabl() {
+        return xTabl;
+    }
+
+    public int getyTabl() {
+        return yTabl;
+    }
 }
