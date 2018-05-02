@@ -6,7 +6,7 @@
 package Client;
 
 import data.GameObservable;
-import data.MainFrame;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +21,7 @@ public class ClienteExec {
     private static SocketCliente socketCliente;
     private static VentanaInicialCliente vInicialCliente;
     private static MainFrameCliente vPrincipalCliente;
+    private static GameObservable gameObsevable= new GameObservable();
     private static int idCliente;
     private static int xTablero;
     private static int yTablero;
@@ -29,7 +30,7 @@ public class ClienteExec {
         vInicialCliente = new VentanaInicialCliente();
         vInicialCliente.setVisible(true);
         socketCliente = new SocketCliente();      
-        vPrincipalCliente = new MainFrameCliente(); 
+        vPrincipalCliente = new MainFrameCliente(gameObsevable); 
     }
     
     public static void intentaLogin(){

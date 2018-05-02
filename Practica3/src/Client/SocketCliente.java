@@ -8,6 +8,7 @@ package Client;
 import data.GameObservable;
 import data.MainFrame;
 import data.Protocolo;
+import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,15 +17,17 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 
 /**
  *
  * @author hectormediero
  */
-public class SocketCliente extends Thread implements Protocolo{
+public class SocketCliente extends Thread implements Protocolo {
 
     private boolean parar = true;
     static DataOutputStream flujo_salida;
@@ -111,15 +114,16 @@ public class SocketCliente extends Thread implements Protocolo{
 
                         break;
                     case PANEL:
-                        
-                        break;  
+
+                        break;
                     case EMP_PAR:
-                        System.out.println("Que empiecen los juegos del hambre");
+                        ClienteExec.getvPrincipalCliente().iniciarSerpientes(20,15);
+                        
                         break;
                     case TAM_TABL:
                         ClienteExec.setxTablero(Integer.parseInt(st.nextToken()));
                         ClienteExec.setyTablero(Integer.parseInt(st.nextToken()));
-                        ClienteExec.getvPrincipalCliente().iniciaTablero();
+                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(),ClienteExec.getyTablero());
                         break;
                 }
             } catch (IOException ex) {
