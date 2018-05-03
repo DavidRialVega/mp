@@ -51,14 +51,9 @@ public class ServerExec implements Protocolo {
     public static GameObservable getGameObservable() {
         return gameObservable;
     }
-<<<<<<< HEAD
-
-    public static void empezarPartida() throws IOException {
-=======
     
     public static void empezarPartida() throws IOException{
         ActualizadorPanel actualizador = new ActualizadorPanel();
->>>>>>> 026dfc5d53423a5827e1c0bc032c1e82165809cf
         ServerExec.broadcast(EMP_PAR + "");
         actualizador.start();
         //ServerExec.gameObservable.empezarPartida();

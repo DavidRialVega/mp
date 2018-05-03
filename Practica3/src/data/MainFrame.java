@@ -32,12 +32,7 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
                 gameScene.add(jp[i][j]);
             }
         }
-<<<<<<< HEAD
-        
-        gc = new GenerarComida(jp);
-=======
 
->>>>>>> 026dfc5d53423a5827e1c0bc032c1e82165809cf
         snake = new Snake(jp, 15, 15, observer, gc);
         
         observer.setSnake(snake);
@@ -110,6 +105,8 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         bottomDirection = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(600, 650));
+        setSize(new java.awt.Dimension(600, 650));
 
         gameScene.setPreferredSize(new java.awt.Dimension(390, 390));
         gameScene.setLayout(new java.awt.GridLayout(39, 39, 1, 1));
@@ -140,7 +137,6 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         });
 
         startButton.setText("Inicio");
-        startButton.setEnabled(false);
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
