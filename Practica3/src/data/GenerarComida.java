@@ -25,11 +25,12 @@ public class GenerarComida extends Thread {
     @Override
     public void run() {
         Random r = new Random();
-        while (noFin) {
+        while (noFin) {                       
             x = r.nextInt(tamaño);
             y = r.nextInt(tamaño);
             if(panel.jp[x][y]==0){
                 generarComida();
+                System.out.println("-----sadasds-----");
             }
         }
     }

@@ -54,4 +54,8 @@ public class PanelDeJuego implements Observer {
     public int[][] getJp() {
         return jp;
     }     
+    
+    public void inciarGeneradoComida(){
+        this.generadorDeComida.start();
+    }
 }

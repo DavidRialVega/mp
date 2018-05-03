@@ -53,28 +53,30 @@ public class ServerExec implements Protocolo {
     }
     
     public static void empezarPartida() throws IOException{
+        System.out.println("Empiezo la partida");
         ActualizadorPanel actualizador = new ActualizadorPanel();
         ServerExec.broadcast(EMP_PAR + "");
+        ServerExec.panelDeJuego.inciarGeneradoComida();
         actualizador.start();
         //ServerExec.gameObservable.empezarPartida();
     }
 
-    /*  public static void comprobarJugadoresActivos() throws IOException {
-     int cont = 0;
+    public static void comprobarJugadoresActivos() throws IOException {
+        int cont = 0;
 
-     for (JugadorServer jugador : jugadores) {
-     if (jugador.isListoJugar()) {
-     cont++;
-     }
-     }
-     if (cont >= 2) {
-     ServerExec.empezarPartida();
-     } else {
-     System.out.println("No hay suficientes jugadores");
-     }
-     }
-     */
-    public static int comprobarJugadoresActivos() throws IOException {
+        for (JugadorServer jugador : jugadores) {
+            if (jugador.isListoJugar()) {
+                cont++;
+            }
+        }
+        if (cont >= 2) {
+            ServerExec.empezarPartida();
+        } else {
+            System.out.println("No hay suficientes jugadores");
+        }
+    }
+     
+   /* public static int comprobarJugadoresActivos() throws IOException {
         int cont = 0;
 
         for (JugadorServer jugador : jugadores) {
@@ -83,7 +85,7 @@ public class ServerExec implements Protocolo {
             }
         }
         return cont;
-    }
+    }*/
 
     public static void broadcast(String mensaje) throws IOException {
         for (JugadorServer jugador : jugadores) {

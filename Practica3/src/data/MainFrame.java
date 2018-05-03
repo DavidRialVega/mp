@@ -300,18 +300,18 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
                 snake.notify();
             }
         } else {
-            try {
-                if (ServerExec.comprobarJugadoresActivos() >= 2) {
-                    System.out.println("holaaaaaaaaaaaa");
-                    this.startButton.setEnabled(true);
-                    runningApp = true;
-                    gc.start();
-                    snake.start();
-                    startButton.setText("Reanudar");
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+////                if (ServerExec.comprobarJugadoresActivos() >= 2) {
+////                    System.out.println("holaaaaaaaaaaaa");
+////                    this.startButton.setEnabled(true);
+////                    runningApp = true;
+////                    gc.start();
+////                    snake.start();
+////                    startButton.setText("Reanudar");
+////                }
+//            } catch (IOException ex) {
+//                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+//            }
             
         }
         pauseButton.setEnabled(true);

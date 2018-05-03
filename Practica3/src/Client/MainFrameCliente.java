@@ -310,7 +310,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
         this.runningApp = false;
-        SocketCliente.enviar("FIN;");
+        //SocketCliente.enviar("FIN;");
      
         startButton.setEnabled(true);
         pauseButton.setEnabled(false);

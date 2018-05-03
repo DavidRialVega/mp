@@ -98,7 +98,7 @@ public class JugadorServer extends Thread implements Protocolo {
                         if (ServerExec.isPartidaActiva()) {
                             enviarMensaje(EMP_PAR + "");                            
                         }else {
-                            //ServerExec.comprobarJugadoresActivos();
+                            ServerExec.comprobarJugadoresActivos();
                         }
                         break;
 
