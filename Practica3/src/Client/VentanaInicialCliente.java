@@ -1,5 +1,8 @@
 package Client;
 
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 public class VentanaInicialCliente extends javax.swing.JFrame {
 
     public VentanaInicialCliente() {
@@ -103,12 +106,16 @@ public class VentanaInicialCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAceptarActionPerformed
-        ClienteExec.setIpServidor(jtfDirIp.getText());
-        ClienteExec.setPuertoServidor(Integer.parseInt(jtfPuerto.getText()));
-        ClienteExec.setNombreUsuario(jtfUsuario.getText());
-        ClienteExec.intentaLogin();
-    }//GEN-LAST:event_jbAceptarActionPerformed
+        try {
+            ClienteExec.setIpServidor(jtfDirIp.getText());
+            ClienteExec.setPuertoServidor(Integer.parseInt(jtfPuerto.getText()));
+            ClienteExec.setNombreUsuario(jtfUsuario.getText());
+            ClienteExec.intentaLogin();
+        } catch(Exception ex)  {
+            JOptionPane.showMessageDialog(this, "Por favor Introduzca los datos correctamente");
+        }
 
+    }//GEN-LAST:event_jbAceptarActionPerformed
 
     public static void main(String args[]) {
 
@@ -133,7 +140,6 @@ public class VentanaInicialCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VentanaInicialCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
