@@ -8,6 +8,7 @@ package Client;
 import data.GameObservable;
 import data.MainFrame;
 import data.Protocolo;
+import data.Traductor;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,6 +36,7 @@ public class SocketCliente extends Thread implements Protocolo {
     OutputStream auxout;
     InputStream auxin;
     Socket sCliente;
+    Traductor traductorMensajes;
 
     public SocketCliente() {
 
@@ -47,6 +49,7 @@ public class SocketCliente extends Thread implements Protocolo {
             flujo_salida = new DataOutputStream(auxout);
             auxin = sCliente.getInputStream();
             flujo_entrada = new DataInputStream(auxin);
+            traductorMensajes = new Traductor();
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -96,7 +99,6 @@ public class SocketCliente extends Thread implements Protocolo {
                 mensaje = flujo_entrada.readUTF();
                 StringTokenizer st = new StringTokenizer(mensaje, ";");
                 int tipo_mensaje = Integer.parseInt(st.nextToken());
-
                 switch (tipo_mensaje) {
                     case IDC:
                         ClienteExec.setIdCliente(Integer.parseInt(st.nextToken()));
@@ -114,16 +116,16 @@ public class SocketCliente extends Thread implements Protocolo {
 
                         break;
                     case PANEL:
-
+                        String panelString= st.nextToken();
+                        ClienteExec.actualizaPanel(traductorMensajes.stringToTablero(panelString));
                         break;
                     case EMP_PAR:
-                        ClienteExec.getvPrincipalCliente().iniciarSerpientes(20,15);
-                        
+                        ClienteExec.getvPrincipalCliente().iniciarSerpientes(20, 15);
                         break;
                     case TAM_TABL:
                         ClienteExec.setxTablero(Integer.parseInt(st.nextToken()));
                         ClienteExec.setyTablero(Integer.parseInt(st.nextToken()));
-                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(),ClienteExec.getyTablero());
+                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(), ClienteExec.getyTablero());
                         break;
                 }
             } catch (IOException ex) {

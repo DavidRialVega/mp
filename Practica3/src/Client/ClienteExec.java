@@ -46,7 +46,7 @@ public class ClienteExec {
         }
     }
 
-     public void actualizaPanel(int arrayPosiciones[][]) {
+     public static void actualizaPanel(int arrayPosiciones[][]) {
         for (int i = 0; i < arrayPosiciones.length; i++) {
             for (int j = 0; j < arrayPosiciones[0].length; j++) {
                 switch (arrayPosiciones[i][j]) {
