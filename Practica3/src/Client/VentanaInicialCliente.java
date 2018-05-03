@@ -110,8 +110,9 @@ public class VentanaInicialCliente extends javax.swing.JFrame {
             ClienteExec.setIpServidor(jtfDirIp.getText());
             ClienteExec.setPuertoServidor(Integer.parseInt(jtfPuerto.getText()));
             ClienteExec.setNombreUsuario(jtfUsuario.getText());
+            ClienteExec.setPuntos("0");
             ClienteExec.intentaLogin();
-        } catch(Exception ex)  {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Por favor Introduzca los datos correctamente");
         }
 

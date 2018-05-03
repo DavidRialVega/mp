@@ -5,9 +5,9 @@
  */
 package Client;
 
+import data.FramePuntuacion;
 import data.GameObservable;
 import java.awt.Color;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -17,10 +17,12 @@ import javax.swing.JOptionPane;
 public class ClienteExec {
 
     private static String ipServidor;
+    private static String puntos;
     private static String nombreUsuario;
     private static int puertoServidor;
     private static SocketCliente socketCliente;
     private static VentanaInicialCliente vInicialCliente;
+    private static FramePuntuacion puntuacion;
     private static MainFrameCliente vPrincipalCliente;
     private static GameObservable gameObsevable = new GameObservable();
     private static int idCliente;
@@ -32,6 +34,7 @@ public class ClienteExec {
         vInicialCliente.setVisible(true);
         socketCliente = new SocketCliente();
         vPrincipalCliente = new MainFrameCliente(gameObsevable);
+        puntuacion = new FramePuntuacion(gameObsevable);
     }
 
     public static void intentaLogin() {
@@ -40,13 +43,16 @@ public class ClienteExec {
             ClienteExec.vInicialCliente.dispose();
             vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
             vPrincipalCliente.setVisible(true);
+            puntuacion.setTextJlNombreUsuario(nombreUsuario);
+            puntuacion.setTextJlPuntuacionUsuario(puntos);
+            puntuacion.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(vInicialCliente, "Login erroneo por favor cambie la direccion ip o el puerto, "
                     + "o intentelo más tarde", "Problema de red", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-     public static void actualizaPanel(int arrayPosiciones[][]) {
+    public static void actualizaPanel(int arrayPosiciones[][]) {
         for (int i = 0; i < arrayPosiciones.length; i++) {
             for (int j = 0; j < arrayPosiciones[0].length; j++) {
                 switch (arrayPosiciones[i][j]) {
@@ -63,7 +69,7 @@ public class ClienteExec {
 
         }
     }
-     
+
     public static String getIpServidor() {
         return ipServidor;
     }
@@ -82,6 +88,10 @@ public class ClienteExec {
 
     public static void setNombreUsuario(String nombreUsuario) {
         ClienteExec.nombreUsuario = nombreUsuario;
+    }
+
+    public static void setPuntos(String puntos) {
+        ClienteExec.puntos = puntos;
     }
 
     public static void setPuertoServidor(int puertoServidor) {
@@ -119,7 +129,5 @@ public class ClienteExec {
     public static MainFrameCliente getvPrincipalCliente() {
         return vPrincipalCliente;
     }
-
-   
 
 }
