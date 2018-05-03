@@ -16,13 +16,13 @@ import javax.swing.JPanel;
 
 public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
-    public static boolean runningApp;            
+    public static boolean runningApp;
     public JPanel[][] jp;
     private GameObservable gameObservable;
-    
+
     public MainFrameCliente(GameObservable gameObservable) {
-        initComponents();        
-        this.gameObservable= gameObservable;
+        initComponents();
+        this.gameObservable = gameObservable;
 //
 //        gc = new GenerarComida(jp);
 //        snake = new Snake(jp, 15, 15, observer, gc);
@@ -37,26 +37,26 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
             private void actualiza(int keyCode, boolean pressed) {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                        
+
                         break;
                     case KeyEvent.VK_DOWN:
-                                        
+
                         break;
 
                     case KeyEvent.VK_LEFT:
-                                          
+
                         break;
 
                     case KeyEvent.VK_RIGHT:
-                                         
+
                         break;
                 }
             }
         });
         setFocusable(true);
     }
-    
-    public void iniciaTablero(int x,int y){
+
+    public void iniciaTablero(int x, int y) {
         jp = new JPanel[x][y];
         gameScene.setLayout(new GridLayout(x, y, 1, 1));
         gameScene.setSize(new java.awt.Dimension(390, 390));
@@ -69,8 +69,9 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
         }
         gameScene.setVisible(true);
     }
-    public void iniciarSerpientes(int x,int y){
-        Snake snake= new Snake(x,y);
+
+    public void iniciarSerpientes(int x, int y) {
+        Snake snake = new Snake(x, y);
         gameObservable.addSnake(ClienteExec.getIdCliente(), snake);
     }
 
@@ -285,7 +286,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         startButton.setEnabled(false);
-        ClienteExec.getSocketCliente().enviar(EMP_PAR+ ";" + ClienteExec.getIdCliente());
+        ClienteExec.getSocketCliente().enviar(EMP_PAR + ";" + ClienteExec.getIdCliente());
 //        if (startButton.getText() == "Reanudar") {
 //            synchronized (snake) {
 //                snake.notify();
@@ -308,7 +309,9 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
-
+        this.runningApp = false;
+        SocketCliente.enviar("FIN;");
+     
         startButton.setEnabled(true);
         pauseButton.setEnabled(false);
         upDirection.setEnabled(false);

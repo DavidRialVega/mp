@@ -69,7 +69,7 @@ public class SocketCliente extends Thread implements Protocolo {
      }
      return respuestaInicial;
      }*/
-    public void enviar(String mensaje) {
+    public static void enviar(String mensaje) {
         try {
             flujo_salida.writeUTF(mensaje);
         } catch (Exception e) {
