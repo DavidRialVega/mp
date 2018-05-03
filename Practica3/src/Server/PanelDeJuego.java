@@ -50,4 +50,8 @@ public class PanelDeJuego implements Observer {
     public int getyTabl() {
         return yTabl;
     }
+
+    public int[][] getJp() {
+        return jp;
+    }     
 }
