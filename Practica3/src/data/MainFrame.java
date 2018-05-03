@@ -29,7 +29,6 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
             }
         }
 
-        gc = new GenerarComida(jp);
         snake = new Snake(jp, 15, 15, observer, gc);
 
         observer.setSnake(snake);
