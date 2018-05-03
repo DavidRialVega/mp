@@ -32,8 +32,12 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
                 gameScene.add(jp[i][j]);
             }
         }
+<<<<<<< HEAD
         
         gc = new GenerarComida(jp);
+=======
+
+>>>>>>> 026dfc5d53423a5827e1c0bc032c1e82165809cf
         snake = new Snake(jp, 15, 15, observer, gc);
         
         observer.setSnake(snake);

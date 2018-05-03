@@ -6,6 +6,7 @@
 package Client;
 
 import data.GameObservable;
+import java.awt.Color;
 
 import javax.swing.JOptionPane;
 
@@ -14,14 +15,14 @@ import javax.swing.JOptionPane;
  * @author hectormediero
  */
 public class ClienteExec {
-    
+
     private static String ipServidor;
     private static String nombreUsuario;
     private static int puertoServidor;
     private static SocketCliente socketCliente;
     private static VentanaInicialCliente vInicialCliente;
     private static MainFrameCliente vPrincipalCliente;
-    private static GameObservable gameObsevable= new GameObservable();
+    private static GameObservable gameObsevable = new GameObservable();
     private static int idCliente;
     private static int xTablero;
     private static int yTablero;
@@ -29,22 +30,40 @@ public class ClienteExec {
     public static void main(String[] args) {
         vInicialCliente = new VentanaInicialCliente();
         vInicialCliente.setVisible(true);
-        socketCliente = new SocketCliente();      
-        vPrincipalCliente = new MainFrameCliente(gameObsevable); 
+        socketCliente = new SocketCliente();
+        vPrincipalCliente = new MainFrameCliente(gameObsevable);
     }
-    
-    public static void intentaLogin(){
+
+    public static void intentaLogin() {
         if (socketCliente.incializar(ClienteExec.ipServidor, ClienteExec.puertoServidor)) {
             socketCliente.start();
-            ClienteExec.vInicialCliente.dispose();                       
+            ClienteExec.vInicialCliente.dispose();
             vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
-            vPrincipalCliente.setVisible(true);                      
-        }else {
-            JOptionPane.showMessageDialog(vInicialCliente,"Login erroneo por favor cambie la direccion ip o el puerto, "
-                + "o intentelo más tarde","Problema de red", JOptionPane.ERROR_MESSAGE);
+            vPrincipalCliente.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(vInicialCliente, "Login erroneo por favor cambie la direccion ip o el puerto, "
+                    + "o intentelo más tarde", "Problema de red", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+     public void actualizaPanel(int arrayPosiciones[][]) {
+        for (int i = 0; i < arrayPosiciones.length; i++) {
+            for (int j = 0; j < arrayPosiciones[0].length; j++) {
+                switch (arrayPosiciones[i][j]) {
+                    case -1:
+                        getvPrincipalCliente().jp[i][j].setBackground(Color.GREEN);
+                        break;
+                    case 0:
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+        }
+    }
+     
     public static String getIpServidor() {
         return ipServidor;
     }
@@ -75,7 +94,7 @@ public class ClienteExec {
 
     public static int getIdCliente() {
         return idCliente;
-    }   
+    }
 
     public static SocketCliente getSocketCliente() {
         return socketCliente;
@@ -100,5 +119,7 @@ public class ClienteExec {
     public static MainFrameCliente getvPrincipalCliente() {
         return vPrincipalCliente;
     }
-    
+
+   
+
 }

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
     public static boolean runningApp;            
-    public JPanel[][] jp = new JPanel[39][39];
+    public JPanel[][] jp;
     private GameObservable gameObservable;
     
     public MainFrameCliente(GameObservable gameObservable) {
@@ -57,6 +57,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
     }
     
     public void iniciaTablero(int x,int y){
+        jp = new JPanel[x][y];
         gameScene.setLayout(new GridLayout(x, y, 1, 1));
         gameScene.setSize(new java.awt.Dimension(390, 390));
         for (int i = 0; i < x; i++) {

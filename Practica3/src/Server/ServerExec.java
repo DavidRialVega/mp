@@ -7,11 +7,14 @@ package Server;
 
 import data.GameObservable;
 import data.Protocolo;
+import data.Traductor;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,9 +51,16 @@ public class ServerExec implements Protocolo {
     public static GameObservable getGameObservable() {
         return gameObservable;
     }
+<<<<<<< HEAD
 
     public static void empezarPartida() throws IOException {
+=======
+    
+    public static void empezarPartida() throws IOException{
+        ActualizadorPanel actualizador = new ActualizadorPanel();
+>>>>>>> 026dfc5d53423a5827e1c0bc032c1e82165809cf
         ServerExec.broadcast(EMP_PAR + "");
+        actualizador.start();
         //ServerExec.gameObservable.empezarPartida();
     }
 
@@ -92,5 +102,14 @@ public class ServerExec implements Protocolo {
 
     public static PanelDeJuego getPanelDeJuego() {
         return panelDeJuego;
+    }
+    
+    public static void eviarEstadoPanel(){
+        Traductor t = new Traductor();
+        try {
+            broadcast(PANEL + ";" + t.tableroToString(panelDeJuego.getJp()));
+        } catch (IOException ex) {
+            System.err.println("Error al enviar el panel");
+        }
     }
 }

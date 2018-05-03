@@ -1,5 +1,6 @@
 package data;
 
+import Server.PanelDeJuego;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,17 +19,18 @@ public class GenerarComida extends Thread {
     public JPanel[][] paneles;
     public Integer numeroComidas = 0;
     public ArrayList<int[]> arrLComidas = new ArrayList();
-    public int tamaño = 39;
+    public int tamaño;
+    private PanelDeJuego panel;
 
     @Override
     public void run() {
         Random r = new Random();
         while (noFin) {
-
             x = r.nextInt(tamaño);
             y = r.nextInt(tamaño);
-            generarComida();
-
+            if(panel.jp[x][y]==0){
+                generarComida();
+            }
         }
     }
 
@@ -56,8 +58,9 @@ public class GenerarComida extends Thread {
         this.y = y;
     }
 
-    public GenerarComida(JPanel[][] paneles) {
-        this.paneles = paneles;
+    public GenerarComida(PanelDeJuego panel) {
+        this.panel = panel;
+        this.tamaño= panel.jp.length;
     }
 
     public ArrayList<int[]> getArrLComidas() {
@@ -70,7 +73,7 @@ public class GenerarComida extends Thread {
 
     private void generarComida() {
         if (arrLComidas.size() < 5) {
-            this.paneles[x][y].setBackground(Color.GREEN);
+            panel.jp[x][y]=-1;
             int[] nuevaComidita = new int[2];
             nuevaComidita[0] = x;
             nuevaComidita[1] = y;
