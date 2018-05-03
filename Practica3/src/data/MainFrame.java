@@ -2,21 +2,25 @@ package data;
 
 import Client.SocketCliente;
 import Server.JugadorServer;
+import Server.ServerExec;
 import static data.Protocolo.DIR;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MainFrame extends javax.swing.JFrame implements Protocolo {
-
+    
     public static boolean runningApp;
     private GameObservable observer;
     private Snake snake;
     GenerarComida gc;
     public static int numeroClientes = 0;
-
+    
     public MainFrame(GameObservable observer) {
         initComponents();
         JPanel[][] jp = new JPanel[39][39];
@@ -28,48 +32,48 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
                 gameScene.add(jp[i][j]);
             }
         }
-
+        
         gc = new GenerarComida(jp);
         snake = new Snake(jp, 15, 15, observer, gc);
-
+        
         observer.setSnake(snake);
-
+        
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 actualiza(e.getKeyCode(), true);
             }
-
+            
             private void actualiza(int keyCode, boolean pressed) {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-                     
+                        
                         observer.setDireccion(Snake.UP);
                         break;
                     case KeyEvent.VK_DOWN:
-                     
+                        
                         observer.setDireccion(Snake.DOWN);
                         break;
-
+                    
                     case KeyEvent.VK_LEFT:
-                       
+                        
                         observer.setDireccion(Snake.LEFT);
                         break;
-
+                    
                     case KeyEvent.VK_RIGHT:
-                       
+                        
                         observer.setDireccion(Snake.RIGHT);
                         break;
                 }
             }
         });
         setFocusable(true);
-
+        
     }
-
+    
     public void fin() {
         JOptionPane.showInternalConfirmDialog(this, "Game Over");
         MainFrame.runningApp = false;
-
+        
     }
 
     /**
@@ -102,8 +106,6 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         bottomDirection = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 650));
-        setSize(new java.awt.Dimension(600, 650));
 
         gameScene.setPreferredSize(new java.awt.Dimension(390, 390));
         gameScene.setLayout(new java.awt.GridLayout(39, 39, 1, 1));
@@ -134,6 +136,7 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
         });
 
         startButton.setText("Inicio");
+        startButton.setEnabled(false);
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -297,11 +300,19 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
                 snake.notify();
             }
         } else {
-            runningApp = true;
-            gc.start();
-            snake.start();
-            startButton.setText("Reanudar");
-
+            try {
+                if (ServerExec.comprobarJugadoresActivos() >= 2) {
+                    System.out.println("holaaaaaaaaaaaa");
+                    this.startButton.setEnabled(true);
+                    runningApp = true;
+                    gc.start();
+                    snake.start();
+                    startButton.setText("Reanudar");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         pauseButton.setEnabled(true);
         startButton.setEnabled(false);
