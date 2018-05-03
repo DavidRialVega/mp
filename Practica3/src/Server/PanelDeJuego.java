@@ -6,6 +6,7 @@
 package Server;
 
 import data.GameObservable;
+import data.GenerarComida;
 import data.Snake;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -23,19 +24,18 @@ import javax.swing.JPanel;
  */
 public class PanelDeJuego implements Observer {
 
-    public ArrayList<int[]> jp = new ArrayList<int[]>();
+    public int[][] jp;
     public GameObservable observable;    
     private int xTabl;
     private int yTabl;
+    private GenerarComida generadorDeComida;
     
     public PanelDeJuego(GameObservable gameObservable, int x, int y) {
         this.xTabl = x;
         this.yTabl = y;
+        this.jp= new int[x][y];
         this.observable = gameObservable;
-        for(int i = 0; i < 40 ; i++){
-            int[] arraux = new int [39];
-            jp.add(arraux);
-        }
+        generadorDeComida= new GenerarComida(this);
     }
 
     @Override
