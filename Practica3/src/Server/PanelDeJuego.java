@@ -58,4 +58,8 @@ public class PanelDeJuego implements Observer {
     public void inciarGeneradoComida(){
         this.generadorDeComida.start();
     }
+
+    public GenerarComida getGeneradorDeComida() {
+        return generadorDeComida;
+    }
 }

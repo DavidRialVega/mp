@@ -62,7 +62,7 @@ public class Snake extends Thread implements Protocolo {
     public void run() {
         while (true) {
             try {
-                //System.out.println("Soy la serpiente: " + this.idSnake + " Mis coordenadas: " + arrayPosiciones.get(0)[0] + " - " + arrayPosiciones.get(0)[1]);
+                System.out.println("Soy la serpiente: " + this.idSnake + " Mis coordenadas: " + arrayPosiciones.get(0)[0] + " - " + arrayPosiciones.get(0)[1]);
                 Thread.sleep(200);
                 moverSerpiente();               
             } catch (InterruptedException ex) {
@@ -201,6 +201,7 @@ public class Snake extends Thread implements Protocolo {
     public void moverSerpiente(){
         Color on = Color.RED;
         Color off = Color.WHITE;
+        detectarComida();
         try {
             switch (direction) {
                 case Snake.UP:
@@ -335,8 +336,9 @@ public class Snake extends Thread implements Protocolo {
     private void detectarComida() {
         int[] nuevaPosicion = new int[2];
         int posicionABorrar = -1;
-        for (int i = 0; i < gc.getArrLComidas().size(); i++) {
-            if (primeraPosicion[0] == gc.getArrLComidas().get(i)[0] && primeraPosicion[1] == gc.getArrLComidas().get(i)[1]) {
+        ArrayList<int[]> arrLComidas = ServerExec.getPanelDeJuego().getGeneradorDeComida().getArrLComidas();
+        for (int i = 0; i < arrLComidas.size(); i++) {
+            if (primeraPosicion[0] == arrLComidas.get(i)[0] && primeraPosicion[1] == arrLComidas.get(i)[1]) {
                 nuevaPosicion[0] = x;
                 nuevaPosicion[1] = y;
                 arrayPosiciones.add(nuevaPosicion);
@@ -345,7 +347,7 @@ public class Snake extends Thread implements Protocolo {
             }
         }
         if (posicionABorrar != -1) {
-            gc.arrLComidas.remove(posicionABorrar);
+            arrLComidas.remove(posicionABorrar);
         }
 
     }
