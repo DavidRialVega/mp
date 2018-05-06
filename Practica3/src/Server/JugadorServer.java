@@ -44,7 +44,7 @@ public class JugadorServer extends Thread implements Protocolo {
         flujo_salida = new DataOutputStream(outputStream);
         listoJugar = false;     
         enviarMensajesIniciales();
-        ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake(ServerExec.getPanelDeJuego().getxTabl(), ServerExec.getPanelDeJuego().getyTabl()));
+        ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake(ServerExec.getPanelDeJuego().getxTabl(), ServerExec.getPanelDeJuego().getyTabl(), this.codigoJugador));
     }
     
     private void enviarMensajesIniciales(){

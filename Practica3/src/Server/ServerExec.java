@@ -57,6 +57,7 @@ public class ServerExec implements Protocolo {
         ActualizadorPanel actualizador = new ActualizadorPanel();
         ServerExec.broadcast(EMP_PAR + "");
         ServerExec.panelDeJuego.inciarGeneradoComida();
+        ServerExec.gameObservable.empezarPartida();
         actualizador.start();
         //ServerExec.gameObservable.empezarPartida();
     }
@@ -69,7 +70,7 @@ public class ServerExec implements Protocolo {
                 cont++;
             }
         }
-        if (cont >= 2) {
+        if (cont >= 1) {
             ServerExec.empezarPartida();
         } else {
             System.out.println("No hay suficientes jugadores");

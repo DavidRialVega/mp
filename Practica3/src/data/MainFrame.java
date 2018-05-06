@@ -70,8 +70,8 @@ public class MainFrame extends javax.swing.JFrame implements Protocolo {
     }
     
     public void fin() {
-        JOptionPane.showInternalConfirmDialog(this, "Game Over");
-        MainFrame.runningApp = false;
+        //JOptionPane.showInternalConfirmDialog(this, "Game Over");
+        //MainFrame.runningApp = false;
         
     }
 

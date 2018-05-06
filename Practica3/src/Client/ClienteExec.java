@@ -60,9 +60,14 @@ public class ClienteExec {
                         getvPrincipalCliente().jp[i][j].setBackground(Color.GREEN);
                         break;
                     case 0:
+                        getvPrincipalCliente().jp[i][j].setBackground(Color.WHITE);
                         break;
                     default:
-
+                        if (arrayPosiciones[i][j] == 1) {
+                            getvPrincipalCliente().jp[i][j].setBackground(Color.RED);
+                        }else if(arrayPosiciones[i][j] == 2){
+                            getvPrincipalCliente().jp[i][j].setBackground(Color.BLUE);
+                        }
                         break;
                 }
             }

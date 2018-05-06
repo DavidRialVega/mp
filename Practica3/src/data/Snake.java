@@ -1,6 +1,7 @@
 package data;
 
 import Client.SocketCliente;
+import Server.ServerExec;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -20,20 +21,27 @@ public class Snake extends Thread implements Protocolo {
 
     private int direction;
     JPanel[][] jpanel;
+    int[][] tablero;
     JPanel jpanelPosicion;
     int x, y;
     boolean pause;
     public GameObservable observer;
     GenerarComida gc;
+    int idSnake;
 
     int[] primeraPosicion = new int[2];
     private ArrayList<int[]> arrayPosiciones = new ArrayList();
 
-    public Snake(int xTabl, int yTabl){
+    public Snake(int xTabl, int yTabl, int idSnake){
         Random r = new Random();
         this.x = r.nextInt(xTabl);
         this.y = r.nextInt(yTabl);
         this.direction = r.nextInt(4);
+        tablero = ServerExec.getPanelDeJuego().getJp();
+        primeraPosicion[0] = x;
+        primeraPosicion[1] = y;
+        this.arrayPosiciones.add(primeraPosicion);
+        this.idSnake = idSnake;
     }    
     
     public Snake(JPanel[][] panel, int x, int y, GameObservable observer, GenerarComida gc) {
@@ -52,24 +60,18 @@ public class Snake extends Thread implements Protocolo {
 
     @Override
     public void run() {
-        while (MainFrame.runningApp) {
+        while (true) {
             try {
-                if (!pause) {
-                    Thread.sleep(200);
-                    moveLabel();
-                } else {
-                    synchronized (this) {
-                        this.wait();
-                        pause = false;
-                    }
-                }
+                System.out.println("Soy la serpiente: " + this.idSnake + " Mis coordenadas: " + arrayPosiciones.get(0)[0] + " - " + arrayPosiciones.get(0)[1]);
+                Thread.sleep(200);
+                moverSerpiente();               
             } catch (InterruptedException ex) {
                 Logger.getLogger(Snake.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    public void moveLabel() {
+    /*public void moveLabel() {
         Color on = Color.RED;
         Color off = Color.WHITE;
         detectarComida();
@@ -194,6 +196,120 @@ public class Snake extends Thread implements Protocolo {
 
         }
 
+    }*/
+    
+    public void moverSerpiente(){
+        Color on = Color.RED;
+        Color off = Color.WHITE;
+        try {
+            switch (direction) {
+                case Snake.UP:
+                    for (int cont = arrayPosiciones.size() - 1; cont >= 0; cont--) {
+                        int[] posicion = new int[2];
+                        posicion[0] = arrayPosiciones.get(cont)[0];
+                        posicion[1] = arrayPosiciones.get(cont)[1];
+                        if (cont == 0 && arrayPosiciones.size() > 1) {
+                            tablero[posicion[0] - 1][posicion[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = posicion[0] - 1;
+                        } else if (cont == 0) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            tablero[posicion[0] - 1][posicion[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = posicion[0] - 1;
+                        } else if (cont == arrayPosiciones.size() - 1) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+                        } else {
+                            tablero[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+                        }
+                    }
+                    break;
+                case Snake.RIGHT:
+                    for (int cont = arrayPosiciones.size() - 1; cont >= 0; cont--) {
+                        int[] posicion = new int[2];
+                        posicion[0] = arrayPosiciones.get(cont)[0];
+                        posicion[1] = arrayPosiciones.get(cont)[1];
+                        if (cont == 0 && arrayPosiciones.size() > 1) {
+                            tablero[posicion[0]][posicion[1] + 1] = this.idSnake;
+                            arrayPosiciones.get(cont)[1] = posicion[1] + 1;
+                        } else if (cont == 0) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            tablero[posicion[0]][posicion[1] + 1] = this.idSnake;
+                            arrayPosiciones.get(cont)[1] = posicion[1] + 1;
+
+                        } else if (cont == arrayPosiciones.size() - 1) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+
+                        } else {
+                            tablero[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+                        }
+                    }
+                    break;
+                case Snake.DOWN:
+                    for (int cont = arrayPosiciones.size() - 1; cont >= 0; cont--) {
+                        int[] posicion = new int[2];
+                        posicion[0] = arrayPosiciones.get(cont)[0];
+                        posicion[1] = arrayPosiciones.get(cont)[1];
+                        if (cont == 0 && arrayPosiciones.size() > 1) {
+                            tablero[posicion[0] + 1][posicion[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = posicion[0] + 1;
+
+                        } else if (cont == 0) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            tablero[posicion[0] + 1][posicion[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = posicion[0] + 1;
+
+                        } else if (cont == arrayPosiciones.size() - 1) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+
+                        } else {
+                            tablero[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]] = this.idSnake;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+                        }
+                    }
+                    break;
+                case Snake.LEFT:
+                    for (int cont = arrayPosiciones.size() - 1; cont >= 0; cont--) {
+                        int[] posicion = new int[2];
+                        posicion[0] = arrayPosiciones.get(cont)[0];
+                        posicion[1] = arrayPosiciones.get(cont)[1];
+                        if (cont == 0 && arrayPosiciones.size() > 1) {
+                            tablero[posicion[0]][posicion[1] - 1] = this.idSnake;
+                            arrayPosiciones.get(cont)[1] = posicion[1] - 1;
+                        } else if (cont == 0) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            tablero[posicion[0]][posicion[1] - 1] = this.idSnake;
+                            arrayPosiciones.get(cont)[1] = posicion[1] - 1;
+                        } else if (cont == arrayPosiciones.size() - 1) {
+                            tablero[posicion[0]][posicion[1]] = 0;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+                        } else {
+                            tablero[arrayPosiciones.get(cont - 1)[0]][arrayPosiciones.get(cont - 1)[1]] = 1;
+                            arrayPosiciones.get(cont)[0] = arrayPosiciones.get(cont - 1)[0];
+                            arrayPosiciones.get(cont)[1] = arrayPosiciones.get(cont - 1)[1];
+                        }
+                    }               
+                    break;
+            }
+        } catch (ArrayIndexOutOfBoundsException exc) {
+            //JOptionPane.showMessageDialog(null, "Game Over");
+            //MainFrame.runningApp = false;
+
+        } catch (ArrayStoreException ex) {
+            //JOptionPane.showMessageDialog(null, "Game Over");
+            //MainFrame.runningApp = false;
+
+        }
     }
 
     public void setDirection(int direction) {

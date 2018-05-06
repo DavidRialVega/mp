@@ -69,7 +69,7 @@ public class SocketCliente extends Thread implements Protocolo {
      }
      return respuestaInicial;
      }*/
-    public static void enviar(String mensaje) {
+    public void enviar(String mensaje) {
         try {
             flujo_salida.writeUTF(mensaje);
         } catch (Exception e) {
@@ -125,13 +125,13 @@ public class SocketCliente extends Thread implements Protocolo {
                     case TAM_TABL:
                         ClienteExec.setxTablero(Integer.parseInt(st.nextToken()));
                         ClienteExec.setyTablero(Integer.parseInt(st.nextToken()));
-                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(), ClienteExec.getyTablero());
+                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(), ClienteExec.getyTablero());                        
                         break;
                 }
             } catch (IOException ex) {
                 Logger.getLogger(SocketCliente.class.getName()).log(Level.SEVERE, null, ex);
 
-            }
+            } 
         }
 
     }

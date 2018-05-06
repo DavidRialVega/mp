@@ -29,8 +29,7 @@ public class GenerarComida extends Thread {
             x = r.nextInt(tamaño);
             y = r.nextInt(tamaño);
             if(panel.jp[x][y]==0){
-                generarComida();
-                System.out.println("-----sadasds-----");
+                generarComida();                
             }
         }
     }
