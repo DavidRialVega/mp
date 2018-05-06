@@ -57,18 +57,10 @@ public class SocketCliente extends Thread implements Protocolo {
         }
     }
 
-    /*  public String conexion() {
-     String respuestaInicial = "";
-     try {
-     flujo_salida.writeUTF(mensaje);
-     flujo_salida.flush();
-     respuestaInicial = flujo_entrada.readUTF();    //Duerme hasta que recibe la respuesta 
-     System.out.println("1: [Establecida conexión con el servidor]");
-     } catch (Exception e) {
-     System.out.println(e.getMessage());
-     }
-     return respuestaInicial;
-     }*/
+    public void cambiarDireccion(int direccion){
+        this.enviar(DIR + ";" + direccion);
+    }
+    
     public void enviar(String mensaje) {
         try {
             flujo_salida.writeUTF(mensaje);

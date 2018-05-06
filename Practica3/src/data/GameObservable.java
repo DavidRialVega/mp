@@ -51,4 +51,8 @@ public class GameObservable extends Observable{
         snakes.forEach((k,v) -> v.start());
         //snakes.forEach((k,v) -> System.out.println("Haaala"));
     }
+    
+    public void cambiarDireccionSnake(int idSnake, int direccion){
+        snakes.get(idSnake).setDirection(direccion);
+    }
 }

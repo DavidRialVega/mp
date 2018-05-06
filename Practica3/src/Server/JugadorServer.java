@@ -87,6 +87,10 @@ public class JugadorServer extends Thread implements Protocolo {
                     case FIN:
 
                         break;
+                    case DIR:
+                        int direccion = Integer.parseInt(st.nextToken());
+                        ServerExec.getGameObservable().cambiarDireccionSnake(this.codigoJugador, direccion);
+                        break;
                     case MOV:
                         
                         break;

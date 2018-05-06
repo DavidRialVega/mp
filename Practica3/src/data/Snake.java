@@ -62,7 +62,7 @@ public class Snake extends Thread implements Protocolo {
     public void run() {
         while (true) {
             try {
-                System.out.println("Soy la serpiente: " + this.idSnake + " Mis coordenadas: " + arrayPosiciones.get(0)[0] + " - " + arrayPosiciones.get(0)[1]);
+                //System.out.println("Soy la serpiente: " + this.idSnake + " Mis coordenadas: " + arrayPosiciones.get(0)[0] + " - " + arrayPosiciones.get(0)[1]);
                 Thread.sleep(200);
                 moverSerpiente();               
             } catch (InterruptedException ex) {

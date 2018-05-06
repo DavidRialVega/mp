@@ -39,18 +39,17 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
             private void actualiza(int keyCode, boolean pressed) {
                 switch (keyCode) {
                     case KeyEvent.VK_UP:
-
+                        ClienteExec.getSocketCliente().cambiarDireccion(Snake.UP);
                         break;
                     case KeyEvent.VK_DOWN:
-
+                        ClienteExec.getSocketCliente().cambiarDireccion(Snake.DOWN);
                         break;
-
                     case KeyEvent.VK_LEFT:
-
+                        System.out.println("Izquierdaaaa");
+                        ClienteExec.getSocketCliente().cambiarDireccion(Snake.LEFT);
                         break;
-
                     case KeyEvent.VK_RIGHT:
-
+                        ClienteExec.getSocketCliente().cambiarDireccion(Snake.RIGHT);
                         break;
                 }
             }
@@ -70,9 +69,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
             }
         }
         gameScene.setVisible(true);
-        
-            //Thread.sleep(3000);
-            this.setBounds(this.getX(), this.getY() + 10, this.getWidth(), this.getHeight() + 10);
+        this.setBounds(this.getX(), this.getY() + 10, this.getWidth(), this.getHeight() + 10);
         
     }
 
