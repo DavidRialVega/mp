@@ -26,16 +26,17 @@ public class ServerExec implements Protocolo {
     private static PanelDeJuego panelDeJuego;
     private static GameObservable gameObservable;
     private static boolean partidaActiva;
+    private static MainFrameServer mfServer;
 
     public static void main(String[] arg) {
+        mfServer = new MainFrameServer();
+        mfServer.setVisible(true);
         try {
             partidaActiva = false;
             ServerSocket skServidor = new ServerSocket(2000);
             Socket sCliente;
             int numcli = 1;
-            gameObservable = new GameObservable();
-            panelDeJuego = new PanelDeJuego(gameObservable, 39, 39);
-            broadcast(PANEL + ";" + ServerExec.panelDeJuego.jp);
+            gameObservable = new GameObservable();            
             while (true) {
                 sCliente = skServidor.accept();
                 jugadores.add(new JugadorServer(sCliente, numcli));
@@ -47,7 +48,10 @@ public class ServerExec implements Protocolo {
             System.out.println(e.getMessage());
         }
     }
-
+    public static void iniciarTablero(int xTablero, int yTablero) {
+        panelDeJuego = new PanelDeJuego(gameObservable, xTablero, yTablero);
+        
+    }
     public static GameObservable getGameObservable() {
         return gameObservable;
     }
@@ -59,7 +63,7 @@ public class ServerExec implements Protocolo {
         ServerExec.panelDeJuego.inciarGeneradoComida();
         ServerExec.gameObservable.empezarPartida();
         actualizador.start();
-        //ServerExec.gameObservable.empezarPartida();
+        ServerExec.gameObservable.empezarPartida();
     }
 
     public static void comprobarJugadoresActivos() throws IOException {

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -56,8 +57,16 @@ public class JugadorServer extends Thread implements Protocolo {
         try {
             flujo_salida.writeUTF(mensaje);
             flujo_salida.flush();
+        } catch (SocketException ex) {
+            try {
+                this.flujo_entrada.close();
+                this.flujo_salida.close();
+                this.skCliente.close();
+            } catch (IOException ex1) {
+                System.out.println("Fallo al cerrar el socket");
+            }            
         } catch (IOException ex) {
-            Logger.getLogger(JugadorServer.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Fallo de IO al enviar mensaje");
         }
     }
 
