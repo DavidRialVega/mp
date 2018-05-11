@@ -65,7 +65,6 @@ public class ServerExec implements Protocolo {
         ServerExec.panelDeJuego.inciarGeneradoComida();
         ServerExec.gameObservable.empezarPartida();
         actualizador.start();
-        ServerExec.gameObservable.empezarPartida();
     }
 
     public static void comprobarJugadoresActivos() throws IOException {

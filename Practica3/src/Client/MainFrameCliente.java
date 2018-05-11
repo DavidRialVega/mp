@@ -111,18 +111,25 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
         gameScene.setPreferredSize(new java.awt.Dimension(390, 390));
         gameScene.setLayout(new java.awt.GridLayout(39, 39, 1, 1));
 
+        infoPanel.setFocusable(false);
+
         xLabel.setText("X: ");
+        xLabel.setFocusable(false);
 
         xTextfield.setText("--");
         xTextfield.setEnabled(false);
+        xTextfield.setFocusable(false);
 
         yLabel.setText("Y: ");
+        yLabel.setFocusable(false);
 
         yTextfield.setText("--");
         yTextfield.setEnabled(false);
+        yTextfield.setFocusable(false);
 
         pauseButton.setText("Pausar");
         pauseButton.setEnabled(false);
+        pauseButton.setFocusable(false);
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseButtonActionPerformed(evt);
@@ -130,6 +137,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
         });
 
         startButton.setText("Inicio");
+        startButton.setFocusable(false);
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -138,13 +146,16 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 
         increaseSpeedButton.setText("+");
         increaseSpeedButton.setEnabled(false);
+        increaseSpeedButton.setFocusable(false);
         increaseSpeedButton.setPreferredSize(new java.awt.Dimension(45, 45));
 
         decreaseSpeedButton.setText("-");
         decreaseSpeedButton.setEnabled(false);
+        decreaseSpeedButton.setFocusable(false);
 
         jlNombreUsuario.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         jlNombreUsuario.setText("Nombre de usuario");
+        jlNombreUsuario.setFocusable(false);
 
         javax.swing.GroupLayout infoPanelLayout = new javax.swing.GroupLayout(infoPanel);
         infoPanel.setLayout(infoPanelLayout);
@@ -195,17 +206,23 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        controllsPanel.setFocusable(false);
+
         upDirection.setText("↑");
         upDirection.setEnabled(false);
+        upDirection.setFocusable(false);
 
         rightDirection.setText("→");
         rightDirection.setEnabled(false);
+        rightDirection.setFocusable(false);
 
         leftDirection.setText("←");
         leftDirection.setEnabled(false);
+        leftDirection.setFocusable(false);
 
         bottomDirection.setText("↓");
         bottomDirection.setEnabled(false);
+        bottomDirection.setFocusable(false);
 
         javax.swing.GroupLayout controllsPanelLayout = new javax.swing.GroupLayout(controllsPanel);
         controllsPanel.setLayout(controllsPanelLayout);
