@@ -29,32 +29,40 @@ public class FramePuntuacion extends javax.swing.JFrame {
         initComponents();
         this.gameObservable = gameObservable;
         this.setLocation(650, 0);
+        this.setSize(500, 500);
 
     }
 
     public void actualizar(String panelPuntuacion) {
+       // this.removeAll();
         System.out.println(" " + panelPuntuacion);
         String fila[] = panelPuntuacion.split(":");
         for (int i = 0; i < fila.length; i++) {
-            String columna[] = panelPuntuacion.split("_");
+            String columna[] = fila[i].split("_");
             jlabelId = new JLabel("jlabelId" + i);
             jlabelId.setText(columna[0]);
-            jlabelId.setBounds(10, 30, 40, 40);
+            jlabelId.setBounds(10, 30 + 30 * i, 40, 40);
             jlabelId.setBackground(Color.CYAN);
             jlabelId.setOpaque(true);
             label.add(jlabelId);
 
             jLabelPuntuacion = new JLabel("jLabelPuntuacion" + i);
             jLabelPuntuacion.setText(columna[1]);
-            jLabelPuntuacion.setBounds(300, 30, 40, 40);
+            jLabelPuntuacion.setBounds(300, 30 + 30 * i, 40, 40);
             jLabelPuntuacion.setBackground(Color.green);
             jLabelPuntuacion.setOpaque(true);
             label.add(jLabelPuntuacion);
         }
+        
+        
         for (JLabel j : label) {
+           // this.jPanelChulo.remove(j);
             this.jPanelChulo.add(j);
+          
         }
-        this.add(jPanelChulo);
+        //this.add(jPanelChulo);
+        repaint();
+
     }
 
     /**

@@ -124,5 +124,6 @@ public class ServerExec implements Protocolo {
             mensaje += jugadores.get(i).codigoJugador + "_" + gameObservable.tamSnake(jugadores.get(i).codigoJugador);
         }
         broadcast(PUNTUACIONES + ";" + mensaje);
+        
     }
 }
