@@ -30,7 +30,7 @@ public class Snake extends Thread implements Protocolo {
     int idSnake;
 
     int[] primeraPosicion = new int[2];
-    private ArrayList<int[]> arrayPosiciones = new ArrayList();
+    public ArrayList<int[]> arrayPosiciones = new ArrayList();
 
     public Snake(int xTabl, int yTabl, int idSnake){
         Random r = new Random();

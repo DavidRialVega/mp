@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class ServerExec implements Protocolo {
 
-    static ArrayList<JugadorServer> jugadores = new ArrayList();
+    public static ArrayList<JugadorServer> jugadores = new ArrayList();
     private static PanelDeJuego panelDeJuego;
     private static GameObservable gameObservable;
     private static boolean partidaActiva;
@@ -36,7 +36,7 @@ public class ServerExec implements Protocolo {
             ServerSocket skServidor = new ServerSocket(2000);
             Socket sCliente;
             int numcli = 1;
-            gameObservable = new GameObservable();            
+            gameObservable = new GameObservable();
             while (true) {
                 sCliente = skServidor.accept();
                 jugadores.add(new JugadorServer(sCliente, numcli));
@@ -48,15 +48,17 @@ public class ServerExec implements Protocolo {
             System.out.println(e.getMessage());
         }
     }
+
     public static void iniciarTablero(int xTablero, int yTablero) {
         panelDeJuego = new PanelDeJuego(gameObservable, xTablero, yTablero);
-        
+
     }
+
     public static GameObservable getGameObservable() {
         return gameObservable;
     }
-    
-    public static void empezarPartida() throws IOException{
+
+    public static void empezarPartida() throws IOException {
         System.out.println("Empiezo la partida");
         ActualizadorPanel actualizador = new ActualizadorPanel();
         ServerExec.broadcast(EMP_PAR + "");
@@ -80,8 +82,8 @@ public class ServerExec implements Protocolo {
             System.out.println("No hay suficientes jugadores");
         }
     }
-     
-   /* public static int comprobarJugadoresActivos() throws IOException {
+
+    /* public static int comprobarJugadoresActivos() throws IOException {
         int cont = 0;
 
         for (JugadorServer jugador : jugadores) {
@@ -91,7 +93,6 @@ public class ServerExec implements Protocolo {
         }
         return cont;
     }*/
-
     public static void broadcast(String mensaje) throws IOException {
         for (JugadorServer jugador : jugadores) {
             jugador.enviarMensaje(mensaje);
@@ -105,13 +106,24 @@ public class ServerExec implements Protocolo {
     public static PanelDeJuego getPanelDeJuego() {
         return panelDeJuego;
     }
-    
-    public static void eviarEstadoPanel(){
+
+    public static void eviarEstadoPanel() {
         Traductor t = new Traductor();
         try {
             broadcast(PANEL + ";" + t.tableroToString(panelDeJuego.getJp()));
         } catch (IOException ex) {
             System.err.println("Error al enviar el panel");
         }
+    }
+
+    public static void enviarPuntuaciones() throws IOException {
+        String mensaje = "";
+        for (int i = 0; i < jugadores.size(); i++) {
+            if (i != 0) {
+                mensaje += ":";
+            }
+            mensaje += jugadores.get(i).codigoJugador + "_" + gameObservable.tamSnake(jugadores.get(i).codigoJugador);
+        }
+        broadcast(PUNTUACIONES + ";" + mensaje);
     }
 }

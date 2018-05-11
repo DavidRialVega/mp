@@ -21,7 +21,7 @@ public interface Protocolo {
     public static final int EMP_PAR = 8;
     public static final int PANEL = 9;
     public static final int TAM_TABL = 10;
-    
-    public static final int INICIALIZAR=12;
-    public static final int GETCOLOR_ID=13;
+    public static final int PUNTUACIONES = 11;
+    public static final int INICIALIZAR = 12;
+    public static final int GETCOLOR_ID = 13;
 }

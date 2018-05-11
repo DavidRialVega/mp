@@ -9,6 +9,7 @@ import data.FramePuntuacion;
 import data.GameObservable;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+
 public class ClienteExec {
 
     private static String ipServidor;
@@ -135,6 +136,10 @@ public class ClienteExec {
 
     public static MainFrameCliente getvPrincipalCliente() {
         return vPrincipalCliente;
+    }
+
+    public static FramePuntuacion getPuntuacion() {
+        return puntuacion;
     }
 
 }

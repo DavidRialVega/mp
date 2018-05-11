@@ -22,20 +22,34 @@ public class FramePuntuacion extends javax.swing.JFrame {
      */
     private GameObservable gameObservable;
     ArrayList<JLabel> label = new ArrayList<JLabel>();
-    private static JLabel jLabel;
+    private static JLabel jlabelId;
+    private static JLabel jLabelPuntuacion;
 
     public FramePuntuacion(GameObservable gameObservable) {
         initComponents();
         this.gameObservable = gameObservable;
         this.setLocation(650, 0);
 
-        for (int i = 0; i < ServerExec.jugadores.size(); i++) {
-            jLabel = new JLabel("Jlabel" + i);
-            jLabel.setText(ServerExec.jugadores.get(i).getName());
-            jLabel.setBounds(0, 0, 200, 200);
-            jLabel.setBackground(Color.green);
-            jLabel.setOpaque(true);
-            label.add(jLabel);
+    }
+
+    public void actualizar(String panelPuntuacion) {
+        System.out.println(" " + panelPuntuacion);
+        String fila[] = panelPuntuacion.split(":");
+        for (int i = 0; i < fila.length; i++) {
+            String columna[] = panelPuntuacion.split("_");
+            jlabelId = new JLabel("jlabelId" + i);
+            jlabelId.setText(columna[0]);
+            jlabelId.setBounds(10, 30, 40, 40);
+            jlabelId.setBackground(Color.CYAN);
+            jlabelId.setOpaque(true);
+            label.add(jlabelId);
+
+            jLabelPuntuacion = new JLabel("jLabelPuntuacion" + i);
+            jLabelPuntuacion.setText(columna[1]);
+            jLabelPuntuacion.setBounds(300, 30, 40, 40);
+            jLabelPuntuacion.setBackground(Color.green);
+            jLabelPuntuacion.setOpaque(true);
+            label.add(jLabelPuntuacion);
         }
         for (JLabel j : label) {
             this.jPanelChulo.add(j);
@@ -54,6 +68,8 @@ public class FramePuntuacion extends javax.swing.JFrame {
 
         jPanelChulo = new javax.swing.JPanel();
         jButtonCerrar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,19 +80,32 @@ public class FramePuntuacion extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Jugador");
+
+        jLabel2.setText("Puntuacion");
+
         javax.swing.GroupLayout jPanelChuloLayout = new javax.swing.GroupLayout(jPanelChulo);
         jPanelChulo.setLayout(jPanelChuloLayout);
         jPanelChuloLayout.setHorizontalGroup(
             jPanelChuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelChuloLayout.createSequentialGroup()
+            .addGroup(jPanelChuloLayout.createSequentialGroup()
                 .addGap(151, 151, 151)
                 .addComponent(jButtonCerrar)
                 .addContainerGap(180, Short.MAX_VALUE))
+            .addGroup(jPanelChuloLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(78, 78, 78))
         );
         jPanelChuloLayout.setVerticalGroup(
             jPanelChuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelChuloLayout.createSequentialGroup()
-                .addContainerGap(236, Short.MAX_VALUE)
+                .addGroup(jPanelChuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addComponent(jButtonCerrar)
                 .addContainerGap())
         );
@@ -108,6 +137,8 @@ public class FramePuntuacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCerrar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelChulo;
     // End of variables declaration//GEN-END:variables
 }

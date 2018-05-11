@@ -38,6 +38,7 @@ public class SocketCliente extends Thread implements Protocolo {
     Socket sCliente;
     Traductor traductorMensajes;
     Color colorPorID;
+
     public SocketCliente() {
 
     }
@@ -57,10 +58,10 @@ public class SocketCliente extends Thread implements Protocolo {
         }
     }
 
-    public void cambiarDireccion(int direccion){
+    public void cambiarDireccion(int direccion) {
         this.enviar(DIR + ";" + direccion);
     }
-    
+
     public void enviar(String mensaje) {
         try {
             flujo_salida.writeUTF(mensaje);
@@ -68,9 +69,9 @@ public class SocketCliente extends Thread implements Protocolo {
             System.out.println(e.getMessage());
         }
     }
-    
-    public Color conseguirColorJugadorById(int id){
-        enviar(GETCOLOR_ID+";"+id);
+
+    public Color conseguirColorJugadorById(int id) {
+        enviar(GETCOLOR_ID + ";" + id);
         return colorPorID;
     }
 
@@ -98,21 +99,25 @@ public class SocketCliente extends Thread implements Protocolo {
                 int tipo_mensaje = Integer.parseInt(st.nextToken());
                 switch (tipo_mensaje) {
                     case GETCOLOR_ID:
-                        colorPorID =new Color(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
+                        colorPorID = new Color(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
                         break;
                     case IDC:
                         ClienteExec.setIdCliente(Integer.parseInt(st.nextToken()));
-                        enviar(INICIALIZAR+";"
-                                +ClienteExec.getColorJugador().getRed()+";"
-                                +ClienteExec.getColorJugador().getGreen()+";"
-                                +ClienteExec.getColorJugador().getBlue()+";"
-                                +ClienteExec.getNombreUsuario());
+                        enviar(INICIALIZAR + ";"
+                                + ClienteExec.getColorJugador().getRed() + ";"
+                                + ClienteExec.getColorJugador().getGreen() + ";"
+                                + ClienteExec.getColorJugador().getBlue() + ";"
+                                + ClienteExec.getNombreUsuario());
                         break;
                     case ERR:
 
                         break;
                     case FIN:
 
+                        break;
+                    case PUNTUACIONES:
+                        String panelPuntuaciones = st.nextToken();
+                        ClienteExec.getPuntuacion().actualizar(panelPuntuaciones);
                         break;
                     case MOV:
 
@@ -121,7 +126,7 @@ public class SocketCliente extends Thread implements Protocolo {
 
                         break;
                     case PANEL:
-                        String panelString= st.nextToken();
+                        String panelString = st.nextToken();
                         ClienteExec.actualizaPanel(traductorMensajes.stringToTablero(panelString));
                         break;
                     case EMP_PAR:
@@ -130,13 +135,13 @@ public class SocketCliente extends Thread implements Protocolo {
                     case TAM_TABL:
                         ClienteExec.setxTablero(Integer.parseInt(st.nextToken()));
                         ClienteExec.setyTablero(Integer.parseInt(st.nextToken()));
-                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(), ClienteExec.getyTablero());                        
+                        ClienteExec.getvPrincipalCliente().iniciaTablero(ClienteExec.getxTablero(), ClienteExec.getyTablero());
                         break;
                 }
             } catch (IOException ex) {
                 Logger.getLogger(SocketCliente.class.getName()).log(Level.SEVERE, null, ex);
 
-            } 
+            }
         }
 
     }
