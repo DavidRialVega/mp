@@ -8,6 +8,7 @@ package Server;
 import Client.SocketCliente;
 import data.Protocolo;
 import data.Snake;
+import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -35,6 +36,8 @@ public class JugadorServer extends Thread implements Protocolo {
     private OutputStream outputStream;
     private DataOutputStream flujo_salida;
     private boolean listoJugar;
+    private Color colorCliente;
+    private String nombreCliente;
 
     public JugadorServer(Socket sCliente, int codCliente) throws IOException {
         this.skCliente = sCliente;
@@ -43,12 +46,12 @@ public class JugadorServer extends Thread implements Protocolo {
         flujo_entrada = new DataInputStream(inputStream);
         outputStream = skCliente.getOutputStream();
         flujo_salida = new DataOutputStream(outputStream);
-        listoJugar = false;     
+        listoJugar = false;
         enviarMensajesIniciales();
         ServerExec.getGameObservable().addSnake(this.codigoJugador, new Snake(ServerExec.getPanelDeJuego().getxTabl(), ServerExec.getPanelDeJuego().getyTabl(), this.codigoJugador));
     }
-    
-    private void enviarMensajesIniciales(){
+
+    private void enviarMensajesIniciales() {
         enviarMensaje(IDC + ";" + this.codigoJugador);
         this.enviarMensaje(TAM_TABL + ";" + ServerExec.getPanelDeJuego().getxTabl() + ";" + ServerExec.getPanelDeJuego().getyTabl());
     }
@@ -64,7 +67,7 @@ public class JugadorServer extends Thread implements Protocolo {
                 this.skCliente.close();
             } catch (IOException ex1) {
                 System.out.println("Fallo al cerrar el socket");
-            }            
+            }
         } catch (IOException ex) {
             System.out.println("Fallo de IO al enviar mensaje");
         }
@@ -87,11 +90,27 @@ public class JugadorServer extends Thread implements Protocolo {
                 StringTokenizer st = new StringTokenizer(mensaje, ";");
                 int tipo_mensaje = Integer.parseInt(st.nextToken());
                 switch (tipo_mensaje) {
+                    case INICIALIZAR:
+                        setColorCliente(Integer.parseInt(st.nextToken()),
+                                Integer.parseInt(st.nextToken()),
+                                Integer.parseInt(st.nextToken()));
+                        setNombreCliente(st.nextToken());
+                        break;
+                    case GETCOLOR_ID:
+                        int codigoABuscar=Integer.parseInt(st.nextToken());
+                       for(JugadorServer jugadorActual : ServerExec.jugadores){
+                           if(jugadorActual.codigoJugador==codigoABuscar){
+                               enviarMensaje(GETCOLOR_ID+";"+jugadorActual.getColorCliente().getRed()+
+                               ";"+jugadorActual.getColorCliente().getGreen()+
+                               ";"+jugadorActual.getColorCliente().getBlue());
+                           }            
+                       }
+                        break;
                     case IDC:
 
                         break;
                     case ERR:
-                        
+
                         break;
                     case FIN:
 
@@ -101,7 +120,7 @@ public class JugadorServer extends Thread implements Protocolo {
                         ServerExec.getGameObservable().cambiarDireccionSnake(this.codigoJugador, direccion);
                         break;
                     case MOV:
-                        
+
                         break;
                     case PTS:
 
@@ -109,8 +128,8 @@ public class JugadorServer extends Thread implements Protocolo {
                     case EMP_PAR:
                         this.listoJugar = true;
                         if (ServerExec.isPartidaActiva()) {
-                            enviarMensaje(EMP_PAR + "");                            
-                        }else {
+                            enviarMensaje(EMP_PAR + "");
+                        } else {
                             ServerExec.comprobarJugadoresActivos();
                         }
                         break;
@@ -126,4 +145,21 @@ public class JugadorServer extends Thread implements Protocolo {
     public boolean isListoJugar() {
         return listoJugar;
     }
+
+    public Color getColorCliente() {
+        return colorCliente;
+    }
+
+    public void setColorCliente(Integer r, Integer g, Integer b) {
+        this.colorCliente = new Color(r, g, b);
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreElegido) {
+        this.nombreCliente = nombreElegido;
+    }
+
 }

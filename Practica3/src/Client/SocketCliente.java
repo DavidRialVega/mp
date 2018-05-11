@@ -37,7 +37,7 @@ public class SocketCliente extends Thread implements Protocolo {
     InputStream auxin;
     Socket sCliente;
     Traductor traductorMensajes;
-
+    Color colorPorID;
     public SocketCliente() {
 
     }
@@ -68,6 +68,11 @@ public class SocketCliente extends Thread implements Protocolo {
             System.out.println(e.getMessage());
         }
     }
+    
+    public Color conseguirColorJugadorById(int id){
+        enviar(GETCOLOR_ID+";"+id);
+        return colorPorID;
+    }
 
     public void cerrarConexion() {
         try {
@@ -92,8 +97,16 @@ public class SocketCliente extends Thread implements Protocolo {
                 StringTokenizer st = new StringTokenizer(mensaje, ";");
                 int tipo_mensaje = Integer.parseInt(st.nextToken());
                 switch (tipo_mensaje) {
+                    case GETCOLOR_ID:
+                        colorPorID =new Color(Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
+                        break;
                     case IDC:
                         ClienteExec.setIdCliente(Integer.parseInt(st.nextToken()));
+                        enviar(INICIALIZAR+";"
+                                +ClienteExec.getColorJugador().getRed()+";"
+                                +ClienteExec.getColorJugador().getGreen()+";"
+                                +ClienteExec.getColorJugador().getBlue()+";"
+                                +ClienteExec.getNombreUsuario());
                         break;
                     case ERR:
 

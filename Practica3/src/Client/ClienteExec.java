@@ -9,11 +9,6 @@ import data.FramePuntuacion;
 import data.GameObservable;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-
-/**
- *
- * @author hectormediero
- */
 public class ClienteExec {
 
     private static String ipServidor;
@@ -28,6 +23,7 @@ public class ClienteExec {
     private static int idCliente;
     private static int xTablero;
     private static int yTablero;
+    private static Color colorJugador;
 
     public static void main(String[] args) {
         vInicialCliente = new VentanaInicialCliente();
@@ -39,10 +35,11 @@ public class ClienteExec {
 
     public static void intentaLogin() {
         if (socketCliente.incializar(ClienteExec.ipServidor, ClienteExec.puertoServidor)) {
+            colorJugador = vInicialCliente.cambiarColor();
             socketCliente.start();
             ClienteExec.vInicialCliente.dispose();
             vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
-            vPrincipalCliente.setVisible(true);           
+            vPrincipalCliente.setVisible(true);
             puntuacion.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(vInicialCliente, "Login erroneo por favor cambie la direccion ip o el puerto, "
@@ -61,11 +58,10 @@ public class ClienteExec {
                         getvPrincipalCliente().jp[i][j].setBackground(Color.WHITE);
                         break;
                     default:
-                        if (arrayPosiciones[i][j] == 1) {
-                            getvPrincipalCliente().jp[i][j].setBackground(Color.RED);
-                        }else if(arrayPosiciones[i][j] == 2){
-                            getvPrincipalCliente().jp[i][j].setBackground(Color.BLUE);
-                        }
+                        System.out.println(socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j]));
+                        getvPrincipalCliente().jp[i][j].setBackground(
+                                socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j])
+                        );
                         break;
                 }
             }
@@ -127,6 +123,14 @@ public class ClienteExec {
 
     public static int getyTablero() {
         return yTablero;
+    }
+
+    public static Color getColorJugador() {
+        return colorJugador;
+    }
+
+    public static void setColorJugador(Color colorJugador) {
+        ClienteExec.colorJugador = colorJugador;
     }
 
     public static MainFrameCliente getvPrincipalCliente() {
