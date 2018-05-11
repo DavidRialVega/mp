@@ -5,7 +5,11 @@
  */
 package data;
 
+import Server.ServerExec;
+import java.awt.Color;
+import java.util.ArrayList;
 import static javafx.application.Platform.exit;
+import javax.swing.JLabel;
 
 /**
  *
@@ -17,11 +21,26 @@ public class FramePuntuacion extends javax.swing.JFrame {
      * Creates new form FramePuntuacion
      */
     private GameObservable gameObservable;
+    ArrayList<JLabel> label = new ArrayList<JLabel>();
+    private static JLabel jLabel;
 
     public FramePuntuacion(GameObservable gameObservable) {
         initComponents();
         this.gameObservable = gameObservable;
         this.setLocation(650, 0);
+
+        for (int i = 0; i < ServerExec.jugadores.size(); i++) {
+            jLabel = new JLabel("Jlabel" + i);
+            jLabel.setText(ServerExec.jugadores.get(i).getName());
+            jLabel.setBounds(0, 0, 200, 200);
+            jLabel.setBackground(Color.green);
+            jLabel.setOpaque(true);
+            label.add(jLabel);
+        }
+        for (JLabel j : label) {
+            this.jPanelChulo.add(j);
+        }
+        this.add(jPanelChulo);
     }
 
     /**
@@ -33,20 +52,10 @@ public class FramePuntuacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabelJugador = new javax.swing.JLabel();
-        jLabelPuntuacion = new javax.swing.JLabel();
+        jPanelChulo = new javax.swing.JPanel();
         jButtonCerrar = new javax.swing.JButton();
-        jLabelNombreJugador = new javax.swing.JLabel();
-        jLabelPuntuacionJugador = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabelJugador.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabelJugador.setText("Jugador");
-
-        jLabelPuntuacion.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabelPuntuacion.setText("Puntuacion");
 
         jButtonCerrar.setText("Cerrar");
         jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -55,47 +64,19 @@ public class FramePuntuacion extends javax.swing.JFrame {
             }
         });
 
-        jLabelNombreJugador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabelNombreJugador.setForeground(new java.awt.Color(0, 0, 255));
-        jLabelNombreJugador.setText("jLabel1");
-
-        jLabelPuntuacionJugador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabelPuntuacionJugador.setForeground(new java.awt.Color(0, 0, 255));
-        jLabelPuntuacionJugador.setText("jLabel2");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelJugador))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jButtonCerrar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelNombreJugador)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelPuntuacionJugador)
-                    .addComponent(jLabelPuntuacion))
-                .addGap(21, 21, 21))
+        javax.swing.GroupLayout jPanelChuloLayout = new javax.swing.GroupLayout(jPanelChulo);
+        jPanelChulo.setLayout(jPanelChuloLayout);
+        jPanelChuloLayout.setHorizontalGroup(
+            jPanelChuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelChuloLayout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(jButtonCerrar)
+                .addContainerGap(180, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelJugador)
-                    .addComponent(jLabelPuntuacion))
-                .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNombreJugador)
-                    .addComponent(jLabelPuntuacionJugador))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+        jPanelChuloLayout.setVerticalGroup(
+            jPanelChuloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelChuloLayout.createSequentialGroup()
+                .addContainerGap(236, Short.MAX_VALUE)
                 .addComponent(jButtonCerrar)
                 .addContainerGap())
         );
@@ -104,13 +85,13 @@ public class FramePuntuacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelChulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelChulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -124,20 +105,9 @@ public class FramePuntuacion extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void setTextJlNombreUsuario(String nombreUsuario) {
-        this.jLabelNombreJugador.setText(nombreUsuario);
-    }
-
-    public void setTextJlPuntuacionUsuario(String puntuacion) {
-        this.jLabelPuntuacionJugador.setText(puntuacion);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCerrar;
-    private javax.swing.JLabel jLabelJugador;
-    private javax.swing.JLabel jLabelNombreJugador;
-    private javax.swing.JLabel jLabelPuntuacion;
-    private javax.swing.JLabel jLabelPuntuacionJugador;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelChulo;
     // End of variables declaration//GEN-END:variables
 }

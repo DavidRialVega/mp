@@ -42,9 +42,7 @@ public class ClienteExec {
             socketCliente.start();
             ClienteExec.vInicialCliente.dispose();
             vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
-            vPrincipalCliente.setVisible(true);
-            puntuacion.setTextJlNombreUsuario(nombreUsuario);
-            puntuacion.setTextJlPuntuacionUsuario(puntos);
+            vPrincipalCliente.setVisible(true);           
             puntuacion.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(vInicialCliente, "Login erroneo por favor cambie la direccion ip o el puerto, "
