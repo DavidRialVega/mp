@@ -8,6 +8,7 @@ package Client;
 import data.FramePuntuacion;
 import data.GameObservable;
 import java.awt.Color;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class ClienteExec {
@@ -25,6 +26,7 @@ public class ClienteExec {
     private static int xTablero;
     private static int yTablero;
     private static Color colorJugador;
+    private static HashMap<Integer,Color> hashMapColores = new HashMap();
 
     public static void main(String[] args) {
         vInicialCliente = new VentanaInicialCliente();
@@ -59,10 +61,11 @@ public class ClienteExec {
                         getvPrincipalCliente().jp[i][j].setBackground(Color.WHITE);
                         break;
                     default:
-                        System.out.println(socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j]));
+                                                getvPrincipalCliente().jp[i][j].setBackground(hashMapColores.get(arrayPosiciones[i][j]));
+                        /*System.out.println(socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j]));
                         getvPrincipalCliente().jp[i][j].setBackground(
                                 socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j])
-                        );
+                        );*/
                         break;
                 }
             }
@@ -141,5 +144,10 @@ public class ClienteExec {
     public static FramePuntuacion getPuntuacion() {
         return puntuacion;
     }
+
+    public static HashMap<Integer, Color> getHashMapColores() {
+        return hashMapColores;
+    }
+            
 
 }

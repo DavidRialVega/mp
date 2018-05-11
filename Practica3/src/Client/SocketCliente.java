@@ -70,11 +70,6 @@ public class SocketCliente extends Thread implements Protocolo {
         }
     }
 
-    public Color conseguirColorJugadorById(int id) {
-        enviar(GETCOLOR_ID + ";" + id);
-        return colorPorID;
-    }
-
     public void cerrarConexion() {
         try {
             System.out.println("Fin del juego...");
@@ -99,7 +94,11 @@ public class SocketCliente extends Thread implements Protocolo {
                 int tipo_mensaje = Integer.parseInt(st.nextToken());
                 switch (tipo_mensaje) {
                     case GETCOLOR_ID:
-                        colorPorID = new Color(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+                        int[][] arrayColores = traductorMensajes.stringToTablero(st.nextToken());
+                        System.out.println(arrayColores.toString());
+                        for (int i = 0; i < arrayColores.length; i++) {
+                            ClienteExec.getHashMapColores().put(i, new Color(arrayColores[i][0], arrayColores[i][1], arrayColores[i][2]));
+                        }
                         break;
                     case IDC:
                         ClienteExec.setIdCliente(Integer.parseInt(st.nextToken()));

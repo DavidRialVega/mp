@@ -27,6 +27,7 @@ public class ServerExec implements Protocolo {
     private static GameObservable gameObservable;
     private static boolean partidaActiva;
     private static MainFrameServer mfServer;
+    private static Traductor traductor = new Traductor();
 
     public static void main(String[] arg) {
         mfServer = new MainFrameServer();
@@ -42,7 +43,7 @@ public class ServerExec implements Protocolo {
                 jugadores.add(new JugadorServer(sCliente, numcli));
                 jugadores.get(jugadores.size() - 1).start();
                 numcli++;
-                System.out.println("jugadores: " + jugadores.size());
+                enviarMensajeDeTodosLosColores();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,7 +65,9 @@ public class ServerExec implements Protocolo {
         ServerExec.broadcast(EMP_PAR + "");
         ServerExec.panelDeJuego.inciarGeneradoComida();
         ServerExec.gameObservable.empezarPartida();
+        enviarMensajeDeTodosLosColores();
         actualizador.start();
+
     }
 
     public static void comprobarJugadoresActivos() throws IOException {
@@ -92,6 +95,29 @@ public class ServerExec implements Protocolo {
         }
         return cont;
     }*/
+    public static void enviarMensajeDeTodosLosColores() {
+        int[][] arrayColores = new int[(jugadores.get(jugadores.size() - 1).codigoJugador)+1][3];
+        for (int i = 0; i < jugadores.size(); i++) {
+            for (int j = 0; j < arrayColores.length; j++) {
+                if (j+1 == jugadores.get(i).codigoJugador) {
+                    arrayColores[j+1][0] = jugadores.get(i).getColorCliente().getRed();
+                    arrayColores[j+1][1] = jugadores.get(i).getColorCliente().getGreen();
+                    arrayColores[j+1][2] = jugadores.get(i).getColorCliente().getBlue();
+                    System.out.println("RELLENO");
+                    break;
+                } 
+            }  
+        }
+         try {
+                System.out.println(traductor.tableroToString(arrayColores));
+                broadcast(GETCOLOR_ID + ";" + traductor.tableroToString(arrayColores));
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+    }
+
+    
+
     public static void broadcast(String mensaje) throws IOException {
         for (JugadorServer jugador : jugadores) {
             jugador.enviarMensaje(mensaje);
@@ -124,6 +150,6 @@ public class ServerExec implements Protocolo {
             mensaje += jugadores.get(i).codigoJugador + "_" + gameObservable.tamSnake(jugadores.get(i).codigoJugador);
         }
         broadcast(PUNTUACIONES + ";" + mensaje);
-        
+
     }
 }

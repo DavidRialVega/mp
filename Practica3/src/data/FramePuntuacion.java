@@ -35,7 +35,6 @@ public class FramePuntuacion extends javax.swing.JFrame {
 
     public void actualizar(String panelPuntuacion) {
        // this.removeAll();
-        System.out.println(" " + panelPuntuacion);
         String fila[] = panelPuntuacion.split(":");
         for (int i = 0; i < fila.length; i++) {
             String columna[] = fila[i].split("_");

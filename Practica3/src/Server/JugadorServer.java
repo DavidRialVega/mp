@@ -96,16 +96,6 @@ public class JugadorServer extends Thread implements Protocolo {
                                 Integer.parseInt(st.nextToken()));
                         setNombreCliente(st.nextToken());
                         break;
-                    case GETCOLOR_ID:
-                        int codigoABuscar=Integer.parseInt(st.nextToken());
-                       for(JugadorServer jugadorActual : ServerExec.jugadores){
-                           if(jugadorActual.codigoJugador==codigoABuscar){
-                               enviarMensaje(GETCOLOR_ID+";"+jugadorActual.getColorCliente().getRed()+
-                               ";"+jugadorActual.getColorCliente().getGreen()+
-                               ";"+jugadorActual.getColorCliente().getBlue());
-                           }            
-                       }
-                        break;
                     case IDC:
 
                         break;
