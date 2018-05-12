@@ -12,10 +12,8 @@ public class ActualizadorPanel extends Thread{
             try {
                 Thread.sleep(100);
                 ServerExec.eviarEstadoPanel();
-                ServerExec.enviarPuntuaciones();
+                //ServerExec.enviarPuntuaciones();
             } catch (InterruptedException ex) {
-                Logger.getLogger(ActualizadorPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
                 Logger.getLogger(ActualizadorPanel.class.getName()).log(Level.SEVERE, null, ex);
             } 
             

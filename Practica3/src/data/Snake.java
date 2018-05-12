@@ -64,16 +64,22 @@ public class Snake extends Thread implements Protocolo {
         while (this.viva) {
             try {
                 //System.out.println("Soy la serpiente: " + this.idSnake + " Mis coordenadas: " + arrayPosiciones.get(0)[0] + " - " + arrayPosiciones.get(0)[1]);
-                Thread.sleep(200);
+                Thread.sleep(500);
                 moverSerpiente();
+                ServerExec.getGameObservable().updatear();
             } catch (InterruptedException ex) {
-                this.viva = false;
-                ServerExec.matarSerpiente(this.idSnake);
+                try {
+                    this.viva = false;
+                    ServerExec.matarSerpiente(this.idSnake);
+                } catch (InterruptedException ex1) {
+                    System.out.println("Excepcion al matar serpiente: " + ex1.toString());
+                }
+               
             }
         }
     }
 
-    public void moverSerpiente() {
+    public void moverSerpiente() throws InterruptedException {
         detectarComida();
         try {
             switch (direction) {

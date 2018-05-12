@@ -76,6 +76,7 @@ public class ClienteExec {
     }
     
     public static void gameOver(){
+        ClienteExec.socketCliente.setParar(true);
         ClienteExec.socketCliente.cerrarConexion();        
         ClienteExec.puntuacion.dispose();
         JOptionPane.showMessageDialog(ClienteExec.vPrincipalCliente, "Game Over");

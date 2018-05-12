@@ -3,29 +3,37 @@ package data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Observer;
 
 public class GameObservable extends Observable {
 
     private int selectedColor;
     private String color;
     private HashMap<Integer, Snake> snakes;
-
+    int i=0;
     public GameObservable() {
         snakes = new HashMap<>();
     }
 
-    public void startLabel() {
-        //snake.update(this,1);
-        setChanged();
-        notifyObservers();
-    }
+//    public void startLabel() {
+//        //snake.update(this,1);
+//        setChanged();
+//        notifyObservers();
+//    }
 
     public void setDireccion(int direction) {
         //snake.setDirection(direction);
     }
 
     public void updatear() {
-        //snake.moveLabel();
+     
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        super.addObserver(o); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getSelectedColor() {
@@ -50,7 +58,10 @@ public class GameObservable extends Observable {
 
     public void empezarPartida() {
         snakes.forEach((k, v) -> v.start());
-        //snakes.forEach((k,v) -> System.out.println("Haaala"));
+    }
+    
+    public void startSnake(int idSnake){
+        snakes.get(idSnake).start();
     }
 
     public void cambiarDireccionSnake(int idSnake, int direccion) {

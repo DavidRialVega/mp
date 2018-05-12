@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 public class JugadorServer extends Thread implements Protocolo {
 
     int codigoJugador;
-    private boolean parar = true;
+    private boolean parar = false;
 
     private Socket skCliente;
     private InputStream inputStream;
@@ -85,7 +85,7 @@ public class JugadorServer extends Thread implements Protocolo {
     @Override
     public void run() {
         String mensaje = "";
-        while (parar) {
+        while (!parar) {
             try {
                 mensaje = flujo_entrada.readUTF();
                 StringTokenizer st = new StringTokenizer(mensaje, ";");
@@ -104,6 +104,7 @@ public class JugadorServer extends Thread implements Protocolo {
 
                         break;
                     case FIN:
+                        parar = true;
                         ServerExec.matarSerpiente(this.codigoJugador);
                         break;
                     case DIR:
@@ -120,6 +121,7 @@ public class JugadorServer extends Thread implements Protocolo {
                         this.listoJugar = true;
                         if (ServerExec.isPartidaActiva()) {
                             enviarMensaje(EMP_PAR + "");
+                            ServerExec.getGameObservable().startSnake(codigoJugador);
                         } else {
                             ServerExec.comprobarJugadoresActivos();
                         }
@@ -127,7 +129,15 @@ public class JugadorServer extends Thread implements Protocolo {
 
                 }
             } catch (IOException ex) {
-
+                try {
+                    ServerExec.matarSerpiente(codigoJugador);
+                    parar = true;
+                } catch (InterruptedException ex1) {
+                    Logger.getLogger(JugadorServer.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                
+            } catch (InterruptedException ex) {
+                Logger.getLogger(JugadorServer.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

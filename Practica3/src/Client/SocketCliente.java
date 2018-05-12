@@ -139,10 +139,14 @@ public class SocketCliente extends Thread implements Protocolo {
                         break;
                 }
             } catch (IOException ex) {
-                Logger.getLogger(SocketCliente.class.getName()).log(Level.SEVERE, null, ex);
+                
 
             }
         }
 
+    }
+
+    public void setParar(boolean parar) {
+        this.parar = parar;
     }
 }

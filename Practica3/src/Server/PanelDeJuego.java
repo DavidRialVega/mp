@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  *
  * @author hectormediero
  */
-public class PanelDeJuego implements Observer {
+public class PanelDeJuego implements Observer{
 
     public int[][] jp;
     public GameObservable observable;    
@@ -35,12 +35,8 @@ public class PanelDeJuego implements Observer {
         this.yTabl = y;
         this.jp= new int[x][y];
         this.observable = gameObservable;
+        this.observable.addObserver(this);
         generadorDeComida= new GenerarComida(this);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getxTabl() {
@@ -61,5 +57,30 @@ public class PanelDeJuego implements Observer {
 
     public GenerarComida getGeneradorDeComida() {
         return generadorDeComida;
+    }
+
+    void borrarSerpiente(int idSnake) {
+        System.out.println("IdSnake: " + idSnake);
+        for (int i = 0; i < jp.length; i++) {
+            for (int j = 0; j < jp.length; j++) {                
+                if (jp[i][j] == idSnake) {
+                    jp[i][j] = 0;
+                }
+            }
+        }
+        
+        for (int i = 0; i < jp.length; i++) {
+            for (int j = 0; j < jp.length; j++) {                
+                if (jp[i][j] == 1) {
+                    System.out.println("Esto no deberia pasar");
+                }
+            }
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("Entro en el panel de juegooo");
+        ServerExec.eviarEstadoPanel();
     }
 }

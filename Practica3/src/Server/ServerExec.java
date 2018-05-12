@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author hectormediero
  */
-public class ServerExec implements Protocolo {
+public class ServerExec implements Protocolo{
 
     public static ArrayList<JugadorServer> jugadores = new ArrayList();
     private static PanelDeJuego panelDeJuego;
@@ -38,12 +40,12 @@ public class ServerExec implements Protocolo {
             Socket sCliente;
             int numcli = 1;
             gameObservable = new GameObservable();
-            while (true) {
+            while (true) {               
                 sCliente = skServidor.accept();
                 jugadores.add(new JugadorServer(sCliente, numcli));
                 jugadores.get(jugadores.size() - 1).start();
                 numcli++;
-                enviarMensajeDeTodosLosColores();
+                //enviarMensajeDeTodosLosColores();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -61,12 +63,12 @@ public class ServerExec implements Protocolo {
 
     public static void empezarPartida() throws IOException {
         System.out.println("Empiezo la partida");
-        ActualizadorPanel actualizador = new ActualizadorPanel();
+        //ActualizadorPanel actualizador = new ActualizadorPanel();
         ServerExec.broadcast(EMP_PAR + "");
         ServerExec.panelDeJuego.inciarGeneradoComida();
         ServerExec.gameObservable.empezarPartida();
         enviarMensajeDeTodosLosColores();
-        actualizador.start();
+ //       actualizador.start();
 
     }
 
@@ -79,22 +81,13 @@ public class ServerExec implements Protocolo {
             }
         }
         if (cont >= 1) {
+            ServerExec.setPartidaActiva(true);
             ServerExec.empezarPartida();
         } else {
             System.out.println("No hay suficientes jugadores");
         }
     }
 
-    /* public static int comprobarJugadoresActivos() throws IOException {
-        int cont = 0;
-
-        for (JugadorServer jugador : jugadores) {
-            if (jugador.isListoJugar()) {
-                cont++;
-            }
-        }
-        return cont;
-    }*/
     public static void enviarMensajeDeTodosLosColores() {
         int[][] arrayColores = new int[(jugadores.get(jugadores.size() - 1).codigoJugador)+1][3];
         for (int i = 0; i < jugadores.size(); i++) {
@@ -153,9 +146,10 @@ public class ServerExec implements Protocolo {
 
     }
     
-    public static void matarSerpiente(int idSnake){
+    public static void matarSerpiente(int idSnake) throws InterruptedException{
         ServerExec.getGameObservable().getSnake(idSnake).setViva(false);
         ServerExec.getGameObservable().borrarSerpiente(idSnake);
+        
         for (int i = 0; i < ServerExec.jugadores.size(); i++) {
             if (ServerExec.jugadores.get(i).codigoJugador == idSnake) {
                 try {                    
@@ -166,5 +160,12 @@ public class ServerExec implements Protocolo {
                 }
             }
         }
+        Thread.sleep(1000);
+        ServerExec.panelDeJuego.borrarSerpiente(idSnake);
     }    
+
+    public static void setPartidaActiva(boolean partidaActiva) {
+        ServerExec.partidaActiva = partidaActiva;
+    }
+
 }
