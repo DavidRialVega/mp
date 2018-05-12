@@ -34,7 +34,7 @@ public class FramePuntuacion extends javax.swing.JFrame {
     }
 
     public void actualizar(String panelPuntuacion) {
-       // this.removeAll();
+        // this.removeAll();
         String fila[] = panelPuntuacion.split(":");
         for (int i = 0; i < fila.length; i++) {
             String columna[] = fila[i].split("_");
@@ -52,15 +52,15 @@ public class FramePuntuacion extends javax.swing.JFrame {
             jLabelPuntuacion.setOpaque(true);
             label.add(jLabelPuntuacion);
         }
-        
-        
+
         for (JLabel j : label) {
-           // this.jPanelChulo.remove(j);
+            // this.jPanelChulo.remove(j);
             this.jPanelChulo.add(j);
-          
+
         }
         //this.add(jPanelChulo);
-        repaint();
+        jlabelId.repaint();
+        jLabelPuntuacion.repaint();
 
     }
 
