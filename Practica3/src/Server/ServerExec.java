@@ -152,4 +152,19 @@ public class ServerExec implements Protocolo {
         broadcast(PUNTUACIONES + ";" + mensaje);
 
     }
+    
+    public static void matarSerpiente(int idSnake){
+        ServerExec.getGameObservable().getSnake(idSnake).setViva(false);
+        ServerExec.getGameObservable().borrarSerpiente(idSnake);
+        for (int i = 0; i < ServerExec.jugadores.size(); i++) {
+            if (ServerExec.jugadores.get(i).codigoJugador == idSnake) {
+                try {                    
+                    ServerExec.jugadores.get(i).cerrarConexion();
+                    ServerExec.jugadores.remove(i);
+                } catch (IOException ex) {
+                    System.out.println("Fallo al cerrar la conexion en el game over");
+                }
+            }
+        }
+    }    
 }

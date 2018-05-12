@@ -60,4 +60,16 @@ public class GameObservable extends Observable {
     public int tamSnake(int idCliente) {
         return this.snakes.get(idCliente).arrayPosiciones.size();
     }
+    
+    public void borrarSerpiente(int idSnake){
+        snakes.remove(idSnake);
+    }
+
+    public HashMap<Integer, Snake> getSnakes() {
+        return snakes;
+    }
+    
+    public Snake getSnake(int idSnake){
+        return snakes.get(idSnake);
+    }
 }

@@ -7,6 +7,7 @@ package Client;
 
 import data.FramePuntuacion;
 import data.GameObservable;
+import static data.Protocolo.EMP_PAR;
 import java.awt.Color;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -41,9 +42,10 @@ public class ClienteExec {
             colorJugador = vInicialCliente.cambiarColor();
             socketCliente.start();
             ClienteExec.vInicialCliente.dispose();
-            vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);
-            vPrincipalCliente.setVisible(true);
+            vPrincipalCliente.setTextJlNombreUsuario(nombreUsuario);            
+            ClienteExec.getSocketCliente().enviar(EMP_PAR + ";" + ClienteExec.getIdCliente());
             puntuacion.setVisible(true);
+            vPrincipalCliente.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(vInicialCliente, "Login erroneo por favor cambie la direccion ip o el puerto, "
                     + "o intentelo más tarde", "Problema de red", JOptionPane.ERROR_MESSAGE);
@@ -71,6 +73,13 @@ public class ClienteExec {
             }
 
         }
+    }
+    
+    public static void gameOver(){
+        ClienteExec.socketCliente.cerrarConexion();        
+        ClienteExec.puntuacion.dispose();
+        JOptionPane.showMessageDialog(ClienteExec.vPrincipalCliente, "Game Over");
+        ClienteExec.vPrincipalCliente.dispose();
     }
 
     public static String getIpServidor() {

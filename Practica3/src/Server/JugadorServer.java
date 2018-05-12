@@ -74,6 +74,7 @@ public class JugadorServer extends Thread implements Protocolo {
     }
 
     void cerrarConexion() throws IOException {
+        enviarMensaje(FIN + "");
         flujo_salida.close();
         outputStream.close();
         flujo_entrada.close();
@@ -103,7 +104,7 @@ public class JugadorServer extends Thread implements Protocolo {
 
                         break;
                     case FIN:
-
+                        ServerExec.matarSerpiente(this.codigoJugador);
                         break;
                     case DIR:
                         int direccion = Integer.parseInt(st.nextToken());

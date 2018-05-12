@@ -96,7 +96,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="pauseButton" min="-2" pref="114" max="-2" attributes="0"/>
+                              <Component id="finPartidaButton" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="decreaseSpeedButton" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
@@ -135,7 +135,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="pauseButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="finPartidaButton" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="increaseSpeedButton" min="-2" pref="45" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -175,14 +175,14 @@
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="pauseButton">
+            <Component class="javax.swing.JButton" name="finPartidaButton">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pausar"/>
+                <Property name="text" type="java.lang.String" value="Fin Partida"/>
                 <Property name="enabled" type="boolean" value="false"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finPartidaButtonActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="startButton">

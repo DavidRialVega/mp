@@ -17,7 +17,7 @@ public class ActualizadorPanel extends Thread{
                 Logger.getLogger(ActualizadorPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ActualizadorPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } 
             
         }
     }

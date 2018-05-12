@@ -1,19 +1,10 @@
 package Client;
 
 import data.*;
-import Client.SocketCliente;
-import Server.JugadorServer;
-import Server.PanelDeJuego;
-import static data.Protocolo.DIR;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
@@ -30,7 +21,14 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 //        snake = new Snake(jp, 15, 15, observer, gc);
 //
 //        observer.setSnake(snake);
-
+        startButton.setEnabled(false);
+        finPartidaButton.setEnabled(true);
+        
+        upDirection.setEnabled(true);
+        rightDirection.setEnabled(true);
+        leftDirection.setEnabled(true);
+        bottomDirection.setEnabled(true);
+        
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 actualiza(e.getKeyCode(), true);
@@ -94,7 +92,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
         xTextfield = new javax.swing.JTextField();
         yLabel = new javax.swing.JLabel();
         yTextfield = new javax.swing.JTextField();
-        pauseButton = new javax.swing.JButton();
+        finPartidaButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
         increaseSpeedButton = new javax.swing.JButton();
         decreaseSpeedButton = new javax.swing.JButton();
@@ -127,12 +125,12 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
         yTextfield.setEnabled(false);
         yTextfield.setFocusable(false);
 
-        pauseButton.setText("Pausar");
-        pauseButton.setEnabled(false);
-        pauseButton.setFocusable(false);
-        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+        finPartidaButton.setText("Fin Partida");
+        finPartidaButton.setEnabled(false);
+        finPartidaButton.setFocusable(false);
+        finPartidaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pauseButtonActionPerformed(evt);
+                finPartidaButtonActionPerformed(evt);
             }
         });
 
@@ -165,7 +163,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
                 .addContainerGap()
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoPanelLayout.createSequentialGroup()
-                        .addComponent(pauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(finPartidaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(decreaseSpeedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,7 +195,7 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
                     .addComponent(yTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(infoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(pauseButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(finPartidaButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(infoPanelLayout.createSequentialGroup()
                         .addComponent(increaseSpeedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -299,8 +297,8 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        startButton.setEnabled(false);
-        ClienteExec.getSocketCliente().enviar(EMP_PAR + ";" + ClienteExec.getIdCliente());
+        
+        
 //        if (startButton.getText() == "Reanudar") {
 //            synchronized (snake) {
 //                snake.notify();
@@ -312,27 +310,23 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
 //            snake.start();
 //            startButton.setText("Reanudar");
 //
-//        }
-        pauseButton.setEnabled(true);
-        startButton.setEnabled(false);
-        upDirection.setEnabled(true);
-        rightDirection.setEnabled(true);
-        leftDirection.setEnabled(true);
-        bottomDirection.setEnabled(true);
+//        }        
 
     }//GEN-LAST:event_startButtonActionPerformed
 
-    private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
-        this.runningApp = false;
-        //SocketCliente.enviar("FIN;");
-     
-        startButton.setEnabled(true);
-        pauseButton.setEnabled(false);
-        upDirection.setEnabled(false);
-        rightDirection.setEnabled(false);
-        leftDirection.setEnabled(false);
-        bottomDirection.setEnabled(false);
-    }//GEN-LAST:event_pauseButtonActionPerformed
+    private void finPartidaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finPartidaButtonActionPerformed
+//        this.runningApp = false;
+//        //SocketCliente.enviar("FIN;");
+//     
+//        startButton.setEnabled(true);
+//        finPartidaButton.setEnabled(false);
+//        upDirection.setEnabled(false);
+//        rightDirection.setEnabled(false);
+//        leftDirection.setEnabled(false);
+//        bottomDirection.setEnabled(false);
+        ClienteExec.getSocketCliente().enviar(FIN + "");
+        ClienteExec.gameOver();
+    }//GEN-LAST:event_finPartidaButtonActionPerformed
 
     public void setTextJlNombreUsuario(String nombreUsuario) {
         this.jlNombreUsuario.setText(nombreUsuario);
@@ -342,13 +336,13 @@ public class MainFrameCliente extends javax.swing.JFrame implements Protocolo {
     private javax.swing.JButton bottomDirection;
     private javax.swing.JPanel controllsPanel;
     private javax.swing.JButton decreaseSpeedButton;
+    private javax.swing.JButton finPartidaButton;
     private javax.swing.JPanel gameScene;
     private javax.swing.JButton increaseSpeedButton;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JLabel jlNombreUsuario;
     private javax.swing.JButton leftDirection;
     private javax.swing.JPanel optionsPanel;
-    private javax.swing.JButton pauseButton;
     private javax.swing.JButton rightDirection;
     private javax.swing.JButton startButton;
     private javax.swing.JButton upDirection;

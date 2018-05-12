@@ -78,6 +78,7 @@ public class SocketCliente extends Thread implements Protocolo {
             flujo_entrada.close();
             auxout.close();
             sCliente.close();
+            parar = false;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -112,7 +113,7 @@ public class SocketCliente extends Thread implements Protocolo {
 
                         break;
                     case FIN:
-
+                        ClienteExec.gameOver();
                         break;
                     case PUNTUACIONES:
                         String panelPuntuaciones = st.nextToken();
