@@ -119,12 +119,6 @@ public class SocketCliente extends Thread implements Protocolo {
                         String panelPuntuaciones = st.nextToken();
                         ClienteExec.getPuntuacion().actualizar(panelPuntuaciones);
                         break;
-                    case MOV:
-
-                        break;
-                    case PTS:
-
-                        break;
                     case PANEL:
                         String panelString = st.nextToken();
                         ClienteExec.actualizaPanel(traductorMensajes.stringToTablero(panelString));

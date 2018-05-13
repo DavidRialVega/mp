@@ -63,11 +63,8 @@ public class ClienteExec {
                         getvPrincipalCliente().jp[i][j].setBackground(Color.WHITE);
                         break;
                     default:
-                                                getvPrincipalCliente().jp[i][j].setBackground(hashMapColores.get(arrayPosiciones[i][j]));
-                        /*System.out.println(socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j]));
-                        getvPrincipalCliente().jp[i][j].setBackground(
-                                socketCliente.conseguirColorJugadorById(arrayPosiciones[i][j])
-                        );*/
+                        //hashMapColores.forEach((k,v)->System.out.println("CODIGO : "+k+"RED"+v.getRed()+"GREEN"+v.getGreen()+"BLUE"+v.getBlue()));
+                        getvPrincipalCliente().jp[i][j].setBackground(hashMapColores.get(arrayPosiciones[i][j]));
                         break;
                 }
             }

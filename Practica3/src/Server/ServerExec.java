@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author hectormediero
  */
-public class ServerExec implements Protocolo{
+public class ServerExec implements Protocolo {
 
     public static ArrayList<JugadorServer> jugadores = new ArrayList();
     private static PanelDeJuego panelDeJuego;
@@ -40,12 +40,11 @@ public class ServerExec implements Protocolo{
             Socket sCliente;
             int numcli = 1;
             gameObservable = new GameObservable();
-            while (true) {               
+            while (true) {
                 sCliente = skServidor.accept();
                 jugadores.add(new JugadorServer(sCliente, numcli));
                 jugadores.get(jugadores.size() - 1).start();
                 numcli++;
-                //enviarMensajeDeTodosLosColores();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -63,13 +62,9 @@ public class ServerExec implements Protocolo{
 
     public static void empezarPartida() throws IOException {
         System.out.println("Empiezo la partida");
-        //ActualizadorPanel actualizador = new ActualizadorPanel();
         ServerExec.broadcast(EMP_PAR + "");
         ServerExec.panelDeJuego.inciarGeneradoComida();
         ServerExec.gameObservable.empezarPartida();
-        enviarMensajeDeTodosLosColores();
- //       actualizador.start();
-
     }
 
     public static void comprobarJugadoresActivos() throws IOException {
@@ -89,27 +84,24 @@ public class ServerExec implements Protocolo{
     }
 
     public static void enviarMensajeDeTodosLosColores() {
-        int[][] arrayColores = new int[(jugadores.get(jugadores.size() - 1).codigoJugador)+1][3];
+        int[][] arrayColores = new int[(jugadores.get(jugadores.size() - 1).codigoJugador) + 1][3];
         for (int i = 0; i < jugadores.size(); i++) {
             for (int j = 0; j < arrayColores.length; j++) {
-                if (j+1 == jugadores.get(i).codigoJugador) {
-                    arrayColores[j+1][0] = jugadores.get(i).getColorCliente().getRed();
-                    arrayColores[j+1][1] = jugadores.get(i).getColorCliente().getGreen();
-                    arrayColores[j+1][2] = jugadores.get(i).getColorCliente().getBlue();
-                    System.out.println("RELLENO");
+                if (j + 1 == jugadores.get(i).codigoJugador) {
+                    arrayColores[j + 1][0] = jugadores.get(i).getColorCliente().getRed();
+                    arrayColores[j + 1][1] = jugadores.get(i).getColorCliente().getGreen();
+                    arrayColores[j + 1][2] = jugadores.get(i).getColorCliente().getBlue();
                     break;
-                } 
-            }  
-        }
-         try {
-                System.out.println(traductor.tableroToString(arrayColores));
-                broadcast(GETCOLOR_ID + ";" + traductor.tableroToString(arrayColores));
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+                }
             }
+        }
+        try {
+            System.out.println(traductor.tableroToString(arrayColores));
+            broadcast(GETCOLOR_ID + ";" + traductor.tableroToString(arrayColores));
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
-
-    
 
     public static void broadcast(String mensaje) throws IOException {
         for (JugadorServer jugador : jugadores) {
@@ -128,7 +120,9 @@ public class ServerExec implements Protocolo{
     public static void eviarEstadoPanel() {
         Traductor t = new Traductor();
         try {
+            enviarMensajeDeTodosLosColores();
             broadcast(PANEL + ";" + t.tableroToString(panelDeJuego.getJp()));
+
         } catch (IOException ex) {
             System.err.println("Error al enviar el panel");
         }
@@ -145,14 +139,14 @@ public class ServerExec implements Protocolo{
         broadcast(PUNTUACIONES + ";" + mensaje);
 
     }
-    
-    public static void matarSerpiente(int idSnake) throws InterruptedException{
+
+    public static void matarSerpiente(int idSnake) throws InterruptedException {
         ServerExec.getGameObservable().getSnake(idSnake).setViva(false);
         ServerExec.getGameObservable().borrarSerpiente(idSnake);
-        
+
         for (int i = 0; i < ServerExec.jugadores.size(); i++) {
             if (ServerExec.jugadores.get(i).codigoJugador == idSnake) {
-                try {                    
+                try {
                     ServerExec.jugadores.get(i).cerrarConexion();
                     ServerExec.jugadores.remove(i);
                 } catch (IOException ex) {
@@ -162,7 +156,7 @@ public class ServerExec implements Protocolo{
         }
         Thread.sleep(1000);
         ServerExec.panelDeJuego.borrarSerpiente(idSnake);
-    }    
+    }
 
     public static void setPartidaActiva(boolean partidaActiva) {
         ServerExec.partidaActiva = partidaActiva;

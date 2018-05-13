@@ -97,9 +97,6 @@ public class JugadorServer extends Thread implements Protocolo {
                                 Integer.parseInt(st.nextToken()));
                         setNombreCliente(st.nextToken());
                         break;
-                    case IDC:
-
-                        break;
                     case ERR:
 
                         break;
@@ -110,12 +107,6 @@ public class JugadorServer extends Thread implements Protocolo {
                     case DIR:
                         int direccion = Integer.parseInt(st.nextToken());
                         ServerExec.getGameObservable().cambiarDireccionSnake(this.codigoJugador, direccion);
-                        break;
-                    case MOV:
-
-                        break;
-                    case PTS:
-
                         break;
                     case EMP_PAR:
                         this.listoJugar = true;
