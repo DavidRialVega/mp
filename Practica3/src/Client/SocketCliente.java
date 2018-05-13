@@ -96,7 +96,6 @@ public class SocketCliente extends Thread implements Protocolo {
                 switch (tipo_mensaje) {
                     case GETCOLOR_ID:
                         int[][] arrayColores = traductorMensajes.stringToTablero(st.nextToken());
-                        System.out.println(arrayColores.toString());
                         for (int i = 0; i < arrayColores.length; i++) {
                             ClienteExec.getHashMapColores().put(i, new Color(arrayColores[i][0], arrayColores[i][1], arrayColores[i][2]));
                         }
@@ -134,7 +133,7 @@ public class SocketCliente extends Thread implements Protocolo {
                 }
             } catch (IOException ex) {
                 
-
+                
             }
         }
 

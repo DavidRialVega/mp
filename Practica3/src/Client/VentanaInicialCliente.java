@@ -8,6 +8,7 @@ public class VentanaInicialCliente extends javax.swing.JFrame {
 
     public VentanaInicialCliente() {
         initComponents();
+         ColorPanel.setBackground(cambiarColor());
     }
 
     public Color cambiarColor() {

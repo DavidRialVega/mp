@@ -96,7 +96,6 @@ public class ServerExec implements Protocolo {
             }
         }
         try {
-            System.out.println(traductor.tableroToString(arrayColores));
             broadcast(GETCOLOR_ID + ";" + traductor.tableroToString(arrayColores));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -120,7 +119,9 @@ public class ServerExec implements Protocolo {
     public static void eviarEstadoPanel() {
         Traductor t = new Traductor();
         try {
-            enviarMensajeDeTodosLosColores();
+            if (jugadores.size() > 0) {
+                enviarMensajeDeTodosLosColores();
+            }
             broadcast(PANEL + ";" + t.tableroToString(panelDeJuego.getJp()));
 
         } catch (IOException ex) {
@@ -141,9 +142,10 @@ public class ServerExec implements Protocolo {
     }
 
     public static void matarSerpiente(int idSnake) throws InterruptedException {
-        ServerExec.getGameObservable().getSnake(idSnake).setViva(false);
-        ServerExec.getGameObservable().borrarSerpiente(idSnake);
-
+        if (ServerExec.getGameObservable().getSnake(idSnake) != null) {
+            ServerExec.getGameObservable().getSnake(idSnake).setViva(false);
+            ServerExec.getGameObservable().borrarSerpiente(idSnake);
+        }
         for (int i = 0; i < ServerExec.jugadores.size(); i++) {
             if (ServerExec.jugadores.get(i).codigoJugador == idSnake) {
                 try {
