@@ -42,14 +42,14 @@ public class FramePuntuacion extends javax.swing.JFrame {
             jlabelId = new JLabel("jlabelId" + i);
             jlabelId.setText(columna[0]);
             jlabelId.setBounds(10, 30 + 30 * i, 40, 40);
-            jlabelId.setBackground(Color.CYAN);
+            jlabelId.setBackground(ClienteExec.getHashMapColores().get(i+1));
             jlabelId.setOpaque(true);
             label.add(jlabelId);
 
             jLabelPuntuacion = new JLabel("jLabelPuntuacion" + i);
             jLabelPuntuacion.setText(columna[1]);
             jLabelPuntuacion.setBounds(300, 30 + 30 * i, 40, 40);
-            jLabelPuntuacion.setBackground(Color.green);
+            jLabelPuntuacion.setBackground(ClienteExec.getHashMapColores().get(i+1));
             jLabelPuntuacion.setOpaque(true);
             label.add(jLabelPuntuacion);
         }
