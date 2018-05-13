@@ -9,13 +9,27 @@ public class Traductor {
         for (int i = 0; i < filasTablero.length; i++) {
             columnas = filasTablero[i].split("_");
             tableroArray[i] = new int[columnas.length];
-            for (int j = 0; j < columnas.length - 1; j++) {
+            for (int j = 0; j < columnas.length; j++) {
                 tableroArray[i][j] = Integer.parseInt(columnas[j]);
             }
         }
         return tableroArray;
     }
     
+     public int[][] stringToTableroColores(String cadenaTablero){
+        String[] filasTablero = cadenaTablero.split("p");
+        int[][] tableroArray = new int[filasTablero.length][];
+        String[] columnas;
+        for (int i = 0; i < filasTablero.length; i++) {
+            columnas = filasTablero[i].split("_");
+            tableroArray[i] = new int[columnas.length];
+            for (int j = 0; j < columnas.length; j++) {
+                tableroArray[i][j] = Integer.parseInt(columnas[j]);
+            }
+        }
+        return tableroArray;
+    }
+     
     public String tableroToString(int[][] tablero){
         String cadenaTablero = "";
         for (int i = 0; i < tablero.length; i++) {
