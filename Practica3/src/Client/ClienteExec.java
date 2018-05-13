@@ -5,8 +5,7 @@
  */
 package Client;
 
-import data.FramePuntuacion;
-import data.GameObservable;
+import Server.GameObservable;
 import static data.Protocolo.EMP_PAR;
 import java.awt.Color;
 import java.util.HashMap;

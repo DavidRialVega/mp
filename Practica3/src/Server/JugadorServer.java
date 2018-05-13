@@ -7,7 +7,6 @@ package Server;
 
 import Client.SocketCliente;
 import data.Protocolo;
-import data.Snake;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

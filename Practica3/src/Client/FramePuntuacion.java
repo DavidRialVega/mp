@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package Client;
 
 import Server.ServerExec;
+import Server.GameObservable;
 import java.awt.Color;
 import java.util.ArrayList;
 import static javafx.application.Platform.exit;

@@ -1,4 +1,4 @@
-package data;
+package Server;
 
 import Server.PanelDeJuego;
 import java.awt.Color;

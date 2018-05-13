@@ -1,5 +1,7 @@
 package Client;
 
+import Server.Snake;
+import Server.GameObservable;
 import data.*;
 import java.awt.Color;
 import java.awt.GridLayout;

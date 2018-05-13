@@ -5,7 +5,6 @@
  */
 package Server;
 
-import data.GameObservable;
 import data.Protocolo;
 import data.Traductor;
 import java.io.IOException;

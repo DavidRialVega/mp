@@ -5,8 +5,7 @@
  */
 package Client;
 
-import data.GameObservable;
-import data.MainFrame;
+import Server.GameObservable;
 import data.Protocolo;
 import data.Traductor;
 import java.awt.Color;

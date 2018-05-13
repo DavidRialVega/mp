@@ -5,9 +5,6 @@
  */
 package Server;
 
-import data.GameObservable;
-import data.GenerarComida;
-import data.Snake;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,7 +60,6 @@ public class PanelDeJuego implements Observer{
     }
 
     void borrarSerpiente(int idSnake) {
-        System.out.println("IdSnake: " + idSnake);
         for (int i = 0; i < jp.length; i++) {
             for (int j = 0; j < jp.length; j++) {                
                 if (jp[i][j] == idSnake) {
@@ -71,14 +67,7 @@ public class PanelDeJuego implements Observer{
                 }
             }
         }
-        
-        for (int i = 0; i < jp.length; i++) {
-            for (int j = 0; j < jp.length; j++) {                
-                if (jp[i][j] == 1) {
-                    System.out.println("Esto no deberia pasar");
-                }
-            }
-        }
+      
     }
 
     @Override

@@ -1,7 +1,10 @@
-package data;
+package Server;
 
+import Server.GenerarComida;
+import Server.GameObservable;
 import Client.SocketCliente;
 import Server.ServerExec;
+import data.Protocolo;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observable;
