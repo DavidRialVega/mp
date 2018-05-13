@@ -33,10 +33,10 @@ public class PanelDeJuego implements Observer{
     private int yTabl;
     private GenerarComida generadorDeComida;
     
-    public PanelDeJuego(GameObservable gameObservable, int x, int y) {
-        this.xTabl = x;
-        this.yTabl = y;
-        this.jp= new int[x][y];
+    public PanelDeJuego(GameObservable gameObservable, int dim) {
+        this.xTabl = dim;
+        this.yTabl = dim;
+        this.jp= new int[dim][dim];
         this.observable = gameObservable;
         this.observable.addObserver(this);
         generadorDeComida= new GenerarComida(this);

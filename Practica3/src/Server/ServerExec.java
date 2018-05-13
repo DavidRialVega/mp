@@ -36,7 +36,7 @@ public class ServerExec implements Protocolo {
         mfServer.setVisible(true);
         try {
             partidaActiva = false;
-            ServerSocket skServidor = new ServerSocket(2000);
+            ServerSocket skServidor = new ServerSocket(8000);
             Socket sCliente;
             int numcli = 1;
             gameObservable = new GameObservable();
@@ -51,8 +51,8 @@ public class ServerExec implements Protocolo {
         }
     }
 
-    public static void iniciarTablero(int xTablero, int yTablero) {
-        panelDeJuego = new PanelDeJuego(gameObservable, xTablero, yTablero);
+    public static void iniciarTablero(int dimTablero) {
+        panelDeJuego = new PanelDeJuego(gameObservable, dimTablero);
 
     }
 
